@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教學訓練計畫主持人工作坊 報名表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        /* 酷炫流動紫色漸層背景 */
+        .bg-animated-gradient {
+            background: linear-gradient(-45deg, #4a00e0, #8e2de2, #9d4edd, #c77dff);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* 玻璃擬物化效果 */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        /* 自定義捲軸 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c77dff;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9d4edd;
+        }
+    </style>
+</head>
+<body class="bg-animated-gradient min-h-screen py-10 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+
+    <div class="max-w-3xl w-full glass-panel rounded-3xl shadow-2xl overflow-hidden transform transition-all">
+        
+        <!-- Header 區塊 -->
+        <div class="bg-gradient-to-r from-purple-800 via-purple-600 to-indigo-600 p-8 text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-white opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+            <h1 class="relative text-3xl sm:text-4xl font-black text-white tracking-wide mb-2 drop-shadow-md">
+                🎓 教學訓練計畫 <br class="sm:hidden"> 主持人工作坊 🚀
+            </h1>
+            <p class="relative text-purple-100 text-lg font-medium mt-3">Welcome to the Workshop ✨</p>
+        </div>
+
+        <div class="p-6 sm:p-10">
+            
+            <!-- 活動資訊區塊 -->
+            <div class="bg-purple-50 rounded-2xl p-6 mb-8 border border-purple-100 shadow-inner">
+                <h2 class="text-xl font-bold text-purple-800 mb-4 flex items-center gap-2">
+                    📢 活動資訊
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
+                    <div class="flex items-center gap-3 bg-white p-3 rounded-xl shadow-sm">
+                        <span class="text-2xl">📅</span>
+                        <div>
+                            <p class="text-xs text-gray-500 font-semibold uppercase">日期</p>
+                            <p class="font-bold">2026 / 01 / 25</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-white p-3 rounded-xl shadow-sm">
+                        <span class="text-2xl">⏰</span>
+                        <div>
+                            <p class="text-xs text-gray-500 font-semibold uppercase">時間</p>
+                            <p class="font-bold">09:00 ~ 16:00</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-white p-3 rounded-xl shadow-sm sm:col-span-2">
+                        <span class="text-2xl">📍</span>
+                        <div>
+                            <p class="text-xs text-gray-500 font-semibold uppercase">地點</p>
+                            <p class="font-bold">奇美醫院 第五醫療大樓 6樓 563會議室</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 報名表單 -->
+            <form id="registrationForm" onsubmit="submitForm(event)">
+                <div class="space-y-6">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- 姓名 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">👤 姓名</label>
+                            <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition-all outline-none bg-white/50 focus:bg-white placeholder-gray-400" placeholder="請輸入您的姓名">
+                        </div>
+                        
+                        <!-- 機構名 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">🏥 機構名</label>
+                            <input type="text" name="institution" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition-all outline-none bg-white/50 focus:bg-white placeholder-gray-400" placeholder="請輸入機構名稱">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- 職稱 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">💼 職稱</label>
+                            <input type="text" name="title" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition-all outline-none bg-white/50 focus:bg-white placeholder-gray-400" placeholder="請輸入您的職稱">
+                        </div>
+
+                        <!-- 負責的職類 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">📋 負責的職類</label>
+                            <div class="relative">
+                                <select name="category" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition-all outline-none bg-white/50 focus:bg-white appearance-none cursor-pointer">
+                                    <option value="" disabled selected>請選擇職類...</option>
+                                    <option value="藥事">💊 藥事</option>
+                                    <option value="醫事放射">☢️ 醫事放射</option>
+                                    <option value="醫事檢驗">🔬 醫事檢驗</option>
+                                    <option value="護理">🩺 護理</option>
+                                    <option value="營養">🥗 營養</option>
+                                    <option value="呼吸治療">🫁 呼吸治療</option>
+                                    <option value="聽力">👂 聽力</option>
+                                    <option value="物理治療">🏃‍♂️ 物理治療</option>
+                                    <option value="職能治療">🧩 職能治療</option>
+                                    <option value="臨床心理">🧠 臨床心理</option>
+                                    <option value="語言治療">🗣️ 語言治療</option>
+                                    <option value="其他">📌 其他</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 選擇題區塊 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-5 rounded-2xl border border-gray-100">
+                        <!-- 是否擔任主持人 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">👑 您目前是否擔任教學訓練計畫主持人？</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="isDirector" value="是" required class="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 focus:ring-2">
+                                    <span class="ml-2 text-gray-700 font-medium">✅ 是</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="isDirector" value="否" required class="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 focus:ring-2">
+                                    <span class="ml-2 text-gray-700 font-medium">❌ 否</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 參與方式 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">💻 您預計以何種方式參與？</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="participation" value="實體" required class="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 focus:ring-2">
+                                    <span class="ml-2 text-gray-700 font-medium">🏫 實體</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="participation" value="線上" required class="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 focus:ring-2">
+                                    <span class="ml-2 text-gray-700 font-medium">🌐 線上</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">✉️ Email</label>
+                            <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition-all outline-none bg-white/50 focus:bg-white placeholder-gray-400" placeholder="example@email.com">
+                        </div>
+                        
+                        <!-- 聯繫電話 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">📱 聯繫電話</label>
+                            <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition-all outline-none bg-white/50 focus:bg-white placeholder-gray-400" placeholder="例如：0912-345-678">
+                        </div>
+                    </div>
+
+                    <!-- 提交按鈕 -->
+                    <div class="pt-4">
+                        <button id="submitBtn" type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 text-lg flex justify-center items-center gap-2">
+                            <span id="btnText">🚀 立即送出報名</span>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+
+            <!-- 成功提示訊息 (預設隱藏) -->
+            <div id="successMessage" class="hidden text-center py-12 px-4">
+                <div class="text-6xl mb-4 animate-bounce">🎉</div>
+                <h2 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600 mb-2">報名成功！</h2>
+                <p class="text-gray-600 text-lg">感謝您的填寫，我們已收到您的報名資料。<br>期待與您在工作坊相見！✨</p>
+                <button onclick="location.reload()" class="mt-8 px-6 py-2 bg-purple-100 text-purple-700 rounded-full font-bold hover:bg-purple-200 transition-colors">
+                    返回填寫另一份
+                </button>
+            </div>
+
+            <!-- Footer / 聯絡資訊 -->
+            <div class="mt-12 pt-6 border-t border-gray-200 text-center text-sm text-gray-500 bg-white/50 rounded-xl p-4">
+                <p class="font-bold text-gray-700 text-base mb-1">🏢 主辦單位：奇美醫院教學部</p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6 mt-2">
+                    <p class="flex items-center gap-1">👤 <span class="font-medium">聯絡人：</span>陳大頭</p>
+                    <p class="flex items-center gap-1">📞 <span class="font-medium">聯繫電話：</span>06-281-2811 分機 57112233</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 【重要】請將下方引號內的網址替換成您部署 Google Apps Script 後取得的「網頁應用程式 URL」
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8GDfFmH3nHnLqZgbB5ZzGgt_HOQJ3-SZxd9e8taYtop-9qymfFREe8LlKI8woPtw/exec';
+
+        // 處理表單送出的動畫與邏輯
+        function submitForm(event) {
+            event.preventDefault(); // 防止頁面重新整理
+            
+            const form = document.getElementById('registrationForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const successMsg = document.getElementById('successMessage');
+            
+            // 變更按鈕狀態為處理中，防止重複點擊
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+            btnText.innerHTML = '⏳ 處理中，請稍候...';
+
+            // 取得表單所有帶有 name 屬性的資料
+            const formData = new FormData(form);
+
+            // 傳送資料到 Google Apps Script
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    // 加入淡出效果
+                    form.style.opacity = '0';
+                    form.style.transition = 'opacity 0.5s ease';
+                    
+                    setTimeout(() => {
+                        form.classList.add('hidden');
+                        successMsg.classList.remove('hidden');
+                        
+                        // 加入淡入效果
+                        successMsg.style.opacity = '0';
+                        successMsg.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            successMsg.style.opacity = '1';
+                        }, 50);
+                        
+                        // 滾動到頂部以便查看訊息
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 500);
+                } else {
+                    alert('發生錯誤：' + data.error);
+                    resetButton();
+                }
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert('網路連線發生問題，請稍後再試！');
+                resetButton();
+            });
+
+            // 恢復按鈕狀態的函式
+            function resetButton() {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                btnText.innerHTML = '🚀 立即送出報名';
+            }
+        }
+    </script>
+</body>
+</html>
