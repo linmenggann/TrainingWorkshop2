@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教學訓練計畫主持人工作坊 - 報名現況儀表板</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .bg-animated-gradient {
+            background: linear-gradient(-45deg, #4a00e0, #8e2de2, #9d4edd, #c77dff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        /* 載入動畫 */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #9d4edd;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-animated-gradient min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="glass-panel rounded-3xl shadow-xl overflow-hidden mb-8">
+            <div class="bg-gradient-to-r from-purple-800 to-indigo-600 p-6 text-center">
+                <h1 class="text-3xl font-black text-white tracking-wide">
+                    📊 報名現況儀表板
+                </h1>
+                <p class="text-purple-100 mt-2">教學訓練計畫主持人工作坊</p>
+            </div>
+        </div>
+
+        <!-- 載入中提示 -->
+        <div id="loading" class="flex flex-col items-center justify-center py-20 glass-panel rounded-3xl shadow-xl">
+            <div class="loader mb-4"></div>
+            <p class="text-purple-800 font-bold text-lg animate-pulse">正在從 Google Sheets 載入最新數據...</p>
+        </div>
+
+        <!-- 儀表板內容 (預設隱藏，資料載入後顯示) -->
+        <div id="dashboardContent" class="hidden space-y-6">
+            
+            <!-- 數據總覽卡片 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel rounded-2xl p-6 shadow-lg flex items-center gap-4">
+                    <div class="bg-purple-100 p-4 rounded-full text-3xl">🧑‍🤝‍🧑</div>
+                    <div>
+                        <p class="text-gray-500 font-bold text-sm">總報名人數</p>
+                        <p id="totalCount" class="text-4xl font-black text-purple-800">0</p>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-2xl p-6 shadow-lg flex items-center gap-4">
+                    <div class="bg-blue-100 p-4 rounded-full text-3xl">🏫</div>
+                    <div>
+                        <p class="text-gray-500 font-bold text-sm">實體參與</p>
+                        <p id="onsiteCount" class="text-4xl font-black text-blue-700">0</p>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-2xl p-6 shadow-lg flex items-center gap-4">
+                    <div class="bg-green-100 p-4 rounded-full text-3xl">🌐</div>
+                    <div>
+                        <p class="text-gray-500 font-bold text-sm">線上參與</p>
+                        <p id="onlineCount" class="text-4xl font-black text-green-600">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 圖表區 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- 參與方式 & 主持人身分 (圓餅圖) -->
+                <div class="glass-panel rounded-2xl p-6 shadow-lg">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">🎯 參與方式與身分比例</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="relative h-48">
+                            <canvas id="participationChart"></canvas>
+                        </div>
+                        <div class="relative h-48">
+                            <canvas id="directorChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 負責職類 (長條圖) -->
+                <div class="glass-panel rounded-2xl p-6 shadow-lg">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">📋 各職類報名人數分布</h2>
+                    <div class="relative h-48 sm:h-56">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最新報名名單 -->
+            <div class="glass-panel rounded-2xl p-6 shadow-lg">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">✨ 最新報名動態</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-purple-50 text-purple-800">
+                                <th class="p-3 rounded-tl-lg">報名時間</th>
+                                <th class="p-3">姓名</th>
+                                <th class="p-3">機構</th>
+                                <th class="p-3">職稱</th>
+                                <th class="p-3 rounded-tr-lg">參與方式</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentList" class="text-gray-700 divide-y divide-gray-100">
+                            <!-- JS 動態插入 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 【重要】請替換為您的 Apps Script 網址 (與報名表相同)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8GDfFmH3nHnLqZgbB5ZzGgt_HOQJ3-SZxd9e8taYtop-9qymfFREe8LlKI8woPtw/exec';
+
+        // 初始化圖表實例
+        let participationChart, directorChart, categoryChart;
+
+        // 頁面載入後自動獲取資料
+        document.addEventListener('DOMContentLoaded', fetchData);
+
+        async function fetchData() {
+            try {
+                // 加入 redirect: "follow" 確保能正確跟隨 Google Apps Script 的重新導向
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP 錯誤狀態: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // 隱藏載入中，顯示儀表板
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('dashboardContent').classList.remove('hidden');
+                
+                processData(data);
+            } catch (error) {
+                console.error('資料載入失敗:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="bg-red-50 p-6 rounded-2xl border border-red-200 max-w-lg text-center shadow-sm">
+                        <p class="text-red-600 font-black text-xl mb-3">❌ 資料載入失敗 (Failed to fetch)</p>
+                        <p class="text-gray-700 mb-4 text-sm font-medium">這通常是因為 Apps Script 尚未正確發布新版本，或權限設定遭拒絕 (CORS錯誤)。</p>
+                        <div class="text-left text-sm text-gray-700 bg-white p-4 rounded-xl shadow-inner border border-red-100">
+                            <p class="font-bold mb-2 text-red-500">🛠️ 解決步驟 (請回 Apps Script 確認)：</p>
+                            <ol class="list-decimal pl-5 space-y-2 font-medium">
+                                <li>確認您的網頁應用程式<strong>「存取權」</strong>是設為<strong>「所有人 (Anyone)」</strong>。</li>
+                                <li>加入 doGet 程式碼後，必須點選右上角 <strong>部署 ➔ 管理部署作業 ➔ 編輯 (鉛筆圖示) ➔ 版本下拉選單務必選擇「新版本」</strong>，然後點選部署才會生效！</li>
+                            </ol>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function processData(data) {
+            // 基礎計數
+            let total = data.length;
+            let online = 0, onsite = 0;
+            let directors = { '是': 0, '否': 0 };
+            let categories = {};
+
+            data.forEach(row => {
+                // 統計參與方式
+                if (row['參與方式'] === '線上') online++;
+                if (row['參與方式'] === '實體') onsite++;
+
+                // 統計主持人身分
+                if (row['目前是否擔任教學訓練計畫主持人'] === '是') directors['是']++;
+                if (row['目前是否擔任教學訓練計畫主持人'] === '否') directors['否']++;
+
+                // 統計職類
+                let cat = row['負責的職類'] || '未填寫';
+                categories[cat] = (categories[cat] || 0) + 1;
+            });
+
+            // 更新頂部卡片數字
+            document.getElementById('totalCount').innerText = total;
+            document.getElementById('onlineCount').innerText = online;
+            document.getElementById('onsiteCount').innerText = onsite;
+
+            // 繪製圖表
+            renderCharts(onsite, online, directors, categories);
+            
+            // 渲染最新報名列表 (取最後5筆，反轉順序讓最新在最上面)
+            renderRecentList(data.slice(-5).reverse());
+        }
+
+        function renderCharts(onsite, online, directors, categories) {
+            // 通用設定
+            Chart.defaults.font.family = "'Noto Sans TC', sans-serif";
+            
+            // 1. 參與方式 (圓餅圖)
+            const ctxPart = document.getElementById('participationChart').getContext('2d');
+            participationChart = new Chart(ctxPart, {
+                type: 'pie',
+                data: {
+                    labels: ['實體', '線上'],
+                    datasets: [{
+                        data: [onsite, online],
+                        backgroundColor: ['#3b82f6', '#10b981'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' }, title: { display: true, text: '參與方式' } }
+                }
+            });
+
+            // 2. 主持人身分 (甜甜圈圖)
+            const ctxDir = document.getElementById('directorChart').getContext('2d');
+            directorChart = new Chart(ctxDir, {
+                type: 'doughnut',
+                data: {
+                    labels: ['是主持人', '非主持人'],
+                    datasets: [{
+                        data: [directors['是'], directors['否']],
+                        backgroundColor: ['#8b5cf6', '#d1d5db'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' }, title: { display: true, text: '主持人身分' } }
+                }
+            });
+
+            // 3. 各職類分布 (長條圖)
+            const ctxCat = document.getElementById('categoryChart').getContext('2d');
+            
+            // 職類資料排序 (由高到低)
+            const sortedCategories = Object.entries(categories).sort((a, b) => b[1] - a[1]);
+            const catLabels = sortedCategories.map(item => item[0]);
+            const catData = sortedCategories.map(item => item[1]);
+
+            categoryChart = new Chart(ctxCat, {
+                type: 'bar',
+                data: {
+                    labels: catLabels,
+                    datasets: [{
+                        label: '報名人數',
+                        data: catData,
+                        backgroundColor: '#c084fc',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function renderRecentList(recentData) {
+            const tbody = document.getElementById('recentList');
+            tbody.innerHTML = ''; // 清空現有內容
+
+            if (recentData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-gray-500">目前尚無報名資料</td></tr>';
+                return;
+            }
+
+            recentData.forEach(row => {
+                // 格式化時間 (假設原本是 ISO 字串或 Google Sheets 的時間格式)
+                let dateStr = row['時間戳記'] ? new Date(row['時間戳記']).toLocaleString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+                
+                // 處理參與方式的標籤顏色
+                let partBadge = row['參與方式'] === '線上' 
+                    ? '<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">線上</span>'
+                    : '<span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">實體</span>';
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-purple-50/50 transition-colors";
+                tr.innerHTML = `
+                    <td class="p-3 text-sm text-gray-500">${dateStr}</td>
+                    <td class="p-3 font-medium">${row['姓名'] || '-'}</td>
+                    <td class="p-3 text-sm">${row['機構名'] || '-'}</td>
+                    <td class="p-3 text-sm">${row['職稱'] || '-'}</td>
+                    <td class="p-3">${partBadge}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>
