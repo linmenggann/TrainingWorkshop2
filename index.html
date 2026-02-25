@@ -10,20 +10,17 @@
         body {
             font-family: 'Noto Sans TC', sans-serif;
         }
-        /* 酷炫流動紫色漸層背景 */
-        .bg-animated-gradient {
-            background: linear-gradient(-45deg, #4a00e0, #8e2de2, #9d4edd, #c77dff);
-            background-size: 400% 400%;
-            animation: gradientBG 12s ease infinite;
-        }
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* 自定義背景圖片 (加入微暗遮罩以凸顯前景表單) */
+        .bg-custom-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://raw.githubusercontent.com/linmenggann/TrainingWorkshop2/main/DSC00012.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
         }
         /* 玻璃擬物化效果 */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.85); /* 稍微調低透明度讓背景更明顯 */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.5);
@@ -44,7 +41,7 @@
         }
     </style>
 </head>
-<body class="bg-animated-gradient min-h-screen py-10 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+<body class="bg-custom-image min-h-screen py-10 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
 
     <div class="max-w-3xl w-full glass-panel rounded-3xl shadow-2xl overflow-hidden transform transition-all">
         
