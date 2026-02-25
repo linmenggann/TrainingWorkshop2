@@ -187,6 +187,14 @@
                         </div>
                     </div>
 
+                    <!-- 錯誤提示訊息 (預設隱藏) -->
+                    <div id="errorMessage" class="hidden bg-red-50 border border-red-200 p-4 rounded-xl shadow-sm animate-pulse">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">🛑</span>
+                            <p id="errorText" class="text-red-700 font-bold text-lg"></p>
+                        </div>
+                    </div>
+
                     <!-- 提交按鈕 -->
                     <div class="pt-4">
                         <button id="submitBtn" type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 text-lg flex justify-center items-center gap-2">
@@ -231,7 +239,12 @@
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
             
+            // 每次送出前先隱藏錯誤訊息
+            errorMsg.classList.add('hidden');
+
             // 變更按鈕狀態為處理中，防止重複點擊
             submitBtn.disabled = true;
             submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
@@ -267,15 +280,24 @@
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     }, 500);
                 } else {
-                    alert('發生錯誤：' + data.error);
+                    // ★ 顯示來自 Apps Script 的錯誤訊息 (例如：額滿)
+                    showError(data.error || '發生未知錯誤，請稍後再試');
                     resetButton();
                 }
             })
             .catch(error => {
                 console.error('Error!', error.message);
-                alert('網路連線發生問題，請稍後再試！');
+                showError('送出失敗，請確認您的網路連線或稍後再試！');
                 resetButton();
             });
+
+            // 顯示錯誤訊息的函式
+            function showError(msg) {
+                errorText.innerText = msg;
+                errorMsg.classList.remove('hidden');
+                // 平滑滾動讓使用者看到錯誤
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
 
             // 恢復按鈕狀態的函式
             function resetButton() {
