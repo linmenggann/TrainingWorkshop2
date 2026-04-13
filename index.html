@@ -178,95 +178,187 @@
       line-height: 1.4;
     }
 
-    /* Registration form fields */
-    .form-fields {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
+    /* Form inputs */
+    .form-group {
+      margin-bottom: 1rem;
     }
 
-    .form-field {
+    .form-group label {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 0.9rem 1.2rem;
-      border-left: 3px solid #a855f7;
-      transition: all 0.3s;
+      gap: 0.6rem;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
     }
 
-    .form-field:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-left-color: #c084fc;
-      transform: translateX(5px);
-    }
-
-    .form-field .field-emoji {
+    .form-group label .field-emoji {
       font-size: 1.3rem;
     }
 
-    .form-field .field-name {
-      font-weight: 600;
+    .form-input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      border: 2px solid rgba(168, 85, 247, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
       font-size: 1rem;
-    }
-
-    .form-field .field-note {
-      font-size: 0.85rem;
-      color: #c4b5fd;
-      margin-left: auto;
-      text-align: right;
-    }
-
-    /* Category tags */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .tag {
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(192, 132, 252, 0.3));
-      border: 1px solid rgba(192, 132, 252, 0.4);
-      border-radius: 50px;
-      padding: 0.4rem 1rem;
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-family: 'Noto Sans TC', sans-serif;
       transition: all 0.3s;
-      cursor: default;
+      outline: none;
     }
 
-    .tag:hover {
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.7), rgba(192, 132, 252, 0.5));
-      transform: scale(1.05);
-      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+    .form-input:focus {
+      border-color: #c084fc;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
     }
 
-    /* Participation options */
-    .options {
+    .form-input::placeholder {
+      color: rgba(196, 181, 253, 0.5);
+    }
+
+    .form-input option {
+      background: #4a1a7a;
+      color: #fff;
+    }
+
+    select.form-input {
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23c4b5fd' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    /* Radio buttons */
+    .radio-group {
       display: flex;
       gap: 1rem;
-      margin-top: 0.8rem;
+      margin-top: 0.5rem;
     }
 
-    .option-btn {
+    .radio-option {
       flex: 1;
+      position: relative;
+    }
+
+    .radio-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .radio-option label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 0.8rem;
       border-radius: 12px;
       text-align: center;
       font-weight: 600;
       font-size: 1.1rem;
-      border: 2px solid rgba(168, 85, 247, 0.5);
-      background: rgba(168, 85, 247, 0.15);
+      border: 2px solid rgba(168, 85, 247, 0.4);
+      background: rgba(168, 85, 247, 0.12);
+      cursor: pointer;
       transition: all 0.3s;
-      cursor: default;
     }
 
-    .option-btn:hover {
-      background: rgba(168, 85, 247, 0.35);
+    .radio-option input[type="radio"]:checked + label {
+      background: rgba(168, 85, 247, 0.5);
       border-color: #c084fc;
-      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+      transform: scale(1.03);
+    }
+
+    .radio-option label:hover {
+      background: rgba(168, 85, 247, 0.3);
+      border-color: #c084fc;
+    }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #7c3aed, #a855f7, #c084fc);
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      font-family: 'Noto Sans TC', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(168, 85, 247, 0.5);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .submit-btn .btn-shimmer {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 2.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      padding: 1rem 2rem;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      z-index: 9999;
+      transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      backdrop-filter: blur(20px);
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast.success {
+      background: rgba(34, 197, 94, 0.9);
+      border: 2px solid rgba(34, 197, 94, 0.5);
+      box-shadow: 0 10px 40px rgba(34, 197, 94, 0.3);
+    }
+
+    .toast.error {
+      background: rgba(239, 68, 68, 0.9);
+      border: 2px solid rgba(239, 68, 68, 0.5);
+      box-shadow: 0 10px 40px rgba(239, 68, 68, 0.3);
     }
 
     /* Contact section */
@@ -348,6 +440,12 @@
       opacity: 0.6;
     }
 
+    /* Required asterisk */
+    .required::after {
+      content: " *";
+      color: #f87171;
+    }
+
     /* Responsive */
     @media (max-width: 600px) {
       .hero h1 { font-size: 2rem; }
@@ -355,6 +453,7 @@
       .contact-grid { grid-template-columns: 1fr; }
       .container { padding: 1rem; }
       .card { padding: 1.5rem; }
+      .radio-group { flex-direction: column; }
     }
   </style>
 </head>
@@ -366,6 +465,9 @@
   <div class="orb orb-3"></div>
 
   <div class="particles" id="particles"></div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
 
   <div class="container">
 
@@ -408,75 +510,135 @@
 
     <div class="section-divider">💜 ✦ 💜 ✦ 💜</div>
 
-    <!-- Registration Fields -->
-    <div class="card delay-2">
-      <div class="card-title">
-        <span class="icon">📝</span> 報名資訊欄位
-      </div>
-      <div class="form-fields">
-        <div class="form-field">
-          <span class="field-emoji">👤</span>
-          <span class="field-name">姓名</span>
-        </div>
-        <div class="form-field">
-          <span class="field-emoji">🏥</span>
-          <span class="field-name">機構名</span>
-        </div>
-        <div class="form-field">
-          <span class="field-emoji">💼</span>
-          <span class="field-name">職稱</span>
-        </div>
-        <div class="form-field">
-          <span class="field-emoji">📧</span>
-          <span class="field-name">Email</span>
-        </div>
-        <div class="form-field">
-          <span class="field-emoji">📞</span>
-          <span class="field-name">聯繫電話</span>
-        </div>
-      </div>
-    </div>
+    <!-- Registration Form -->
+    <form id="registrationForm" onsubmit="return false;">
 
-    <!-- Categories -->
-    <div class="card delay-3">
-      <div class="card-title">
-        <span class="icon">🏷️</span> 負責的職類
-      </div>
-      <p style="color: #c4b5fd; margin-bottom: 0.5rem; font-size: 0.9rem;">下拉式選單選擇</p>
-      <div class="tags">
-        <span class="tag">💊 藥事</span>
-        <span class="tag">🩻 醫事放射</span>
-        <span class="tag">🔬 醫事檢驗</span>
-        <span class="tag">🩺 護理</span>
-        <span class="tag">🥗 營養</span>
-        <span class="tag">🫁 呼吸治療</span>
-        <span class="tag">👂 聽力</span>
-        <span class="tag">🦿 物理治療</span>
-        <span class="tag">🧠 職能治療</span>
-        <span class="tag">🧩 臨床心理</span>
-        <span class="tag">🗣️ 語言治療</span>
-        <span class="tag">📎 其他</span>
-      </div>
-    </div>
+      <!-- Basic Info -->
+      <div class="card delay-2">
+        <div class="card-title">
+          <span class="icon">📝</span> 報名資訊
+        </div>
 
-    <!-- Participation Options -->
-    <div class="card delay-4">
-      <div class="card-title">
-        <span class="icon">🙋</span> 參與方式
+        <div class="form-group">
+          <label for="name">
+            <span class="field-emoji">👤</span>
+            <span class="required">姓名</span>
+          </label>
+          <input type="text" id="name" class="form-input" placeholder="請輸入姓名" required>
+        </div>
+
+        <div class="form-group">
+          <label for="org">
+            <span class="field-emoji">🏥</span>
+            <span class="required">機構名</span>
+          </label>
+          <input type="text" id="org" class="form-input" placeholder="請輸入機構名稱" required>
+        </div>
+
+        <div class="form-group">
+          <label for="title">
+            <span class="field-emoji">💼</span>
+            <span class="required">職稱</span>
+          </label>
+          <input type="text" id="title" class="form-input" placeholder="請輸入職稱" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">
+            <span class="field-emoji">📧</span>
+            <span class="required">Email</span>
+          </label>
+          <input type="email" id="email" class="form-input" placeholder="請輸入 Email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">
+            <span class="field-emoji">📞</span>
+            <span class="required">聯繫電話</span>
+          </label>
+          <input type="tel" id="phone" class="form-input" placeholder="請輸入聯繫電話" required>
+        </div>
       </div>
 
-      <p style="font-weight: 500; margin-bottom: 0.5rem;">您目前是否擔任教學訓練計畫主持人？</p>
-      <div class="options">
-        <div class="option-btn">✅ 是</div>
-        <div class="option-btn">❌ 否</div>
+      <!-- Category -->
+      <div class="card delay-3">
+        <div class="card-title">
+          <span class="icon">🏷️</span> 負責的職類
+        </div>
+        <div class="form-group">
+          <label for="category">
+            <span class="field-emoji">📋</span>
+            <span class="required">請選擇職類</span>
+          </label>
+          <select id="category" class="form-input" required>
+            <option value="" disabled selected>-- 請選擇 --</option>
+            <option value="藥事">💊 藥事</option>
+            <option value="醫事放射">🩻 醫事放射</option>
+            <option value="醫事檢驗">🔬 醫事檢驗</option>
+            <option value="護理">🩺 護理</option>
+            <option value="營養">🥗 營養</option>
+            <option value="呼吸治療">🫁 呼吸治療</option>
+            <option value="聽力">👂 聽力</option>
+            <option value="物理治療">🦿 物理治療</option>
+            <option value="職能治療">🧠 職能治療</option>
+            <option value="臨床心理">🧩 臨床心理</option>
+            <option value="語言治療">🗣️ 語言治療</option>
+            <option value="其他">📎 其他</option>
+          </select>
+        </div>
       </div>
 
-      <p style="font-weight: 500; margin-top: 1.5rem; margin-bottom: 0.5rem;">您預計以何種方式參與？</p>
-      <div class="options">
-        <div class="option-btn">🏢 實體</div>
-        <div class="option-btn">💻 線上</div>
+      <!-- Participation Options -->
+      <div class="card delay-4">
+        <div class="card-title">
+          <span class="icon">🙋</span> 參與方式
+        </div>
+
+        <div class="form-group">
+          <label>
+            <span class="field-emoji">🎯</span>
+            <span class="required">您目前是否擔任教學訓練計畫主持人？</span>
+          </label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="isHost_yes" name="isHost" value="是" required>
+              <label for="isHost_yes">✅ 是</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="isHost_no" name="isHost" value="否">
+              <label for="isHost_no">❌ 否</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 1.5rem;">
+          <label>
+            <span class="field-emoji">🖥️</span>
+            <span class="required">您預計以何種方式參與？</span>
+          </label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="join_onsite" name="joinMethod" value="實體" required>
+              <label for="join_onsite">🏢 實體</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="join_online" name="joinMethod" value="線上">
+              <label for="join_online">💻 線上</label>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <!-- Submit -->
+      <div class="card delay-5" style="text-align: center;">
+        <button type="button" class="submit-btn" id="submitBtn" onclick="submitForm()">
+          <span class="btn-shimmer"></span>
+          🚀 送出報名
+        </button>
+        <p style="color: #c4b5fd; font-size: 0.85rem; margin-top: 0.8rem;">* 為必填欄位</p>
+      </div>
+
+    </form>
 
     <div class="section-divider">🌟 ✦ 🌟 ✦ 🌟</div>
 
@@ -513,6 +675,84 @@
   </div>
 
   <script>
+    // ============================================================
+    // ★★★ 請將下方網址替換為您部署的 Apps Script 網頁應用程式網址 ★★★
+    // ============================================================
+    const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
+
+    // Toast notification
+    function showToast(message, type) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = "toast " + type + " show";
+      setTimeout(() => { toast.classList.remove("show"); }, 4000);
+    }
+
+    // Form submission
+    function submitForm() {
+      const form = document.getElementById("registrationForm");
+
+      // Validate all required fields
+      const name = document.getElementById("name").value.trim();
+      const org = document.getElementById("org").value.trim();
+      const title = document.getElementById("title").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const category = document.getElementById("category").value;
+      const isHost = document.querySelector('input[name="isHost"]:checked');
+      const joinMethod = document.querySelector('input[name="joinMethod"]:checked');
+
+      if (!name || !org || !title || !email || !phone || !category || !isHost || !joinMethod) {
+        showToast("⚠️ 請填寫所有必填欄位！", "error");
+        return;
+      }
+
+      // Email format check
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showToast("⚠️ 請輸入有效的 Email 地址！", "error");
+        return;
+      }
+
+      if (APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_URL_HERE") {
+        showToast("⚠️ 請先設定 Apps Script 網址！", "error");
+        return;
+      }
+
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-shimmer"></span>⏳ 送出中...';
+
+      const data = {
+        name: name,
+        org: org,
+        title: title,
+        email: email,
+        phone: phone,
+        category: category,
+        isHost: isHost.value,
+        joinMethod: joinMethod.value
+      };
+
+      fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        showToast("🎉 報名成功！感謝您的填寫！", "success");
+        form.reset();
+      })
+      .catch(() => {
+        showToast("❌ 送出失敗，請稍後再試！", "error");
+      })
+      .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<span class="btn-shimmer"></span>🚀 送出報名';
+      });
+    }
+
     // Create floating emoji particles
     const emojis = ['🎓', '✨', '📚', '💜', '🌟', '🎯', '💡', '🩺', '🏥', '⭐'];
     const container = document.getElementById('particles');
