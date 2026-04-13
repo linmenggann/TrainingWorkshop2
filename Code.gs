@@ -24,6 +24,9 @@
  * 8. 將網址貼到 index.html 中的 APPS_SCRIPT_URL 變數
  */
 
+// 報名人數上限
+var MAX_CAPACITY = 4;
+
 // 處理 POST 請求（表單提交）
 function doPost(e) {
   try {
@@ -31,6 +34,12 @@ function doPost(e) {
 
     if (!sheet) {
       return createResponse(false, "找不到「工作坊報名資料」分頁");
+    }
+
+    // 檢查是否已額滿
+    var currentCount = Math.max(0, sheet.getLastRow() - 1);
+    if (currentCount >= MAX_CAPACITY) {
+      return createResponse(false, "報名已額滿，無法受理新報名。");
     }
 
     var data = JSON.parse(e.postData.contents);
@@ -87,7 +96,8 @@ function doGet(e) {
       };
     });
 
-    var output = JSON.stringify({ success: true, data: data, total: data.length });
+    var isFull = data.length >= MAX_CAPACITY;
+    var output = JSON.stringify({ success: true, data: data, total: data.length, maxCapacity: MAX_CAPACITY, isFull: isFull });
     return ContentService.createTextOutput(output).setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
     return createResponse(false, "發生錯誤：" + error.message);

@@ -440,6 +440,83 @@
       opacity: 0.6;
     }
 
+    /* Capacity banner */
+    .capacity-bar {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .capacity-info {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50px;
+      padding: 0.6rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .capacity-info .cap-emoji {
+      font-size: 1.2rem;
+    }
+
+    .capacity-progress {
+      width: 120px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .capacity-progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.8s ease-out, background 0.3s;
+      background: linear-gradient(90deg, #22c55e, #4ade80);
+    }
+
+    .capacity-progress-fill.warning {
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    }
+
+    .capacity-progress-fill.full {
+      background: linear-gradient(90deg, #ef4444, #f87171);
+    }
+
+    /* Full overlay */
+    .full-overlay {
+      background: rgba(239, 68, 68, 0.12);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(239, 68, 68, 0.4);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .full-overlay .full-emoji {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .full-overlay .full-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fca5a5;
+      margin-bottom: 0.5rem;
+    }
+
+    .full-overlay .full-desc {
+      font-size: 1.05rem;
+      color: #fecaca;
+    }
+
     /* Required asterisk */
     .required::after {
       content: " *";
@@ -506,6 +583,16 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Capacity status -->
+    <div id="capacityStatus" class="capacity-bar" style="display:none;"></div>
+
+    <!-- Full overlay (hidden by default) -->
+    <div id="fullOverlay" style="display:none;" class="full-overlay">
+      <span class="full-emoji">🚫</span>
+      <div class="full-title">報名已額滿</div>
+      <div class="full-desc">本活動限額 4 名，目前報名人數已達上限，<br>系統已停止受理報名，感謝您的關注！</div>
     </div>
 
     <div class="section-divider">💜 ✦ 💜 ✦ 💜</div>
@@ -679,6 +766,7 @@
     // ★★★ 請將下方網址替換為您部署的 Apps Script 網頁應用程式網址 ★★★
     // ============================================================
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWunr6nQAjjfdvJKJ5eyesHkuLg6bE7FsiTN57uWcM6LQrCbeGBbeak4TecjSu2E9C/exec";
+    const MAX_CAPACITY = 4;
 
     // Toast notification
     function showToast(message, type) {
@@ -686,6 +774,54 @@
       toast.textContent = message;
       toast.className = "toast " + type + " show";
       setTimeout(() => { toast.classList.remove("show"); }, 4000);
+    }
+
+    // Check capacity on page load
+    function checkCapacity() {
+      fetch(APPS_SCRIPT_URL)
+        .then(res => res.json())
+        .then(json => {
+          const count = json.total || 0;
+          updateCapacityUI(count);
+        })
+        .catch(() => {
+          // If fetch fails, show form anyway
+          updateCapacityUI(0);
+        });
+    }
+
+    // Update UI based on current count
+    function updateCapacityUI(count) {
+      const remaining = Math.max(0, MAX_CAPACITY - count);
+      const pct = Math.min(100, (count / MAX_CAPACITY) * 100);
+      const isFull = count >= MAX_CAPACITY;
+
+      // Capacity bar
+      const capStatus = document.getElementById("capacityStatus");
+      let fillClass = "";
+      if (pct >= 100) fillClass = "full";
+      else if (pct >= 75) fillClass = "warning";
+
+      capStatus.style.display = "block";
+      capStatus.innerHTML =
+        '<div class="capacity-info">' +
+          '<span class="cap-emoji">' + (isFull ? '🚫' : '📊') + '</span>' +
+          '<span>報名人數 ' + count + ' / ' + MAX_CAPACITY + '</span>' +
+          '<div class="capacity-progress"><div class="capacity-progress-fill ' + fillClass + '" style="width:' + pct + '%"></div></div>' +
+          '<span>' + (isFull ? '❌ 已額滿' : '✅ 剩餘 ' + remaining + ' 名') + '</span>' +
+        '</div>';
+
+      // Show/hide form vs full overlay
+      const formEl = document.getElementById("registrationForm");
+      const overlay = document.getElementById("fullOverlay");
+
+      if (isFull) {
+        formEl.style.display = "none";
+        overlay.style.display = "block";
+      } else {
+        formEl.style.display = "block";
+        overlay.style.display = "none";
+      }
     }
 
     // Form submission
@@ -714,11 +850,6 @@
         return;
       }
 
-      if (APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_URL_HERE") {
-        showToast("⚠️ 請先設定 Apps Script 網址！", "error");
-        return;
-      }
-
       const btn = document.getElementById("submitBtn");
       btn.disabled = true;
       btn.innerHTML = '<span class="btn-shimmer"></span>⏳ 送出中...';
@@ -743,6 +874,8 @@
       .then(() => {
         showToast("🎉 報名成功！感謝您的填寫！", "success");
         form.reset();
+        // Re-check capacity after submission
+        checkCapacity();
       })
       .catch(() => {
         showToast("❌ 送出失敗，請稍後再試！", "error");
@@ -752,6 +885,9 @@
         btn.innerHTML = '<span class="btn-shimmer"></span>🚀 送出報名';
       });
     }
+
+    // Check capacity when page loads
+    checkCapacity();
 
     // Create floating emoji particles
     const emojis = ['🎓', '✨', '📚', '💜', '🌟', '🎯', '💡', '🩺', '🏥', '⭐'];
