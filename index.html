@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎓 教學訓練計畫主持人工作坊</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a0533 0%, #4a1a7a 25%, #7b2fbe 50%, #a855f7 75%, #c084fc 100%);
+      background-attachment: fixed;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      font-size: 1.5rem;
+      animation: float linear infinite;
+      opacity: 0.4;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.4; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Glowing orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: orbMove 8s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    .orb-1 { width: 300px; height: 300px; background: #a855f7; top: 10%; left: 10%; }
+    .orb-2 { width: 400px; height: 400px; background: #7c3aed; top: 50%; right: 5%; animation-delay: -3s; }
+    .orb-3 { width: 250px; height: 250px; background: #c084fc; bottom: 10%; left: 30%; animation-delay: -5s; }
+
+    @keyframes orbMove {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, -30px) scale(1.15); }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-emoji {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 1rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #f0abfc, #fff, #e9d5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      text-shadow: none;
+      line-height: 1.3;
+    }
+
+    .hero .subtitle {
+      font-size: 1.2rem;
+      color: #e9d5ff;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(168, 85, 247, 0.3);
+      border-color: rgba(168, 85, 247, 0.5);
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .card-title .icon {
+      font-size: 1.8rem;
+    }
+
+    /* Info grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .info-item {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 1.2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      transition: background 0.3s;
+    }
+
+    .info-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .info-item .emoji {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .info-item .label {
+      font-size: 0.85rem;
+      color: #c4b5fd;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .info-item .value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    /* Registration form fields */
+    .form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .form-field {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      border-left: 3px solid #a855f7;
+      transition: all 0.3s;
+    }
+
+    .form-field:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-left-color: #c084fc;
+      transform: translateX(5px);
+    }
+
+    .form-field .field-emoji {
+      font-size: 1.3rem;
+    }
+
+    .form-field .field-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .form-field .field-note {
+      font-size: 0.85rem;
+      color: #c4b5fd;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    /* Category tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(192, 132, 252, 0.3));
+      border: 1px solid rgba(192, 132, 252, 0.4);
+      border-radius: 50px;
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+      cursor: default;
+    }
+
+    .tag:hover {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.7), rgba(192, 132, 252, 0.5));
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+    }
+
+    /* Participation options */
+    .options {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.8rem;
+    }
+
+    .option-btn {
+      flex: 1;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border: 2px solid rgba(168, 85, 247, 0.5);
+      background: rgba(168, 85, 247, 0.15);
+      transition: all 0.3s;
+      cursor: default;
+    }
+
+    .option-btn:hover {
+      background: rgba(168, 85, 247, 0.35);
+      border-color: #c084fc;
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+    }
+
+    /* Contact section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: scale(1.03);
+    }
+
+    .contact-item .c-emoji {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-item .c-label {
+      font-size: 0.8rem;
+      color: #c4b5fd;
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-item .c-value {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: #c4b5fd;
+      font-size: 0.9rem;
+    }
+
+    .footer .org {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #e9d5ff;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .delay-1 { animation-delay: 0.2s; animation-fill-mode: both; }
+    .delay-2 { animation-delay: 0.4s; animation-fill-mode: both; }
+    .delay-3 { animation-delay: 0.6s; animation-fill-mode: both; }
+    .delay-4 { animation-delay: 0.8s; animation-fill-mode: both; }
+    .delay-5 { animation-delay: 1.0s; animation-fill-mode: both; }
+
+    /* Divider */
+    .section-divider {
+      text-align: center;
+      font-size: 1.5rem;
+      letter-spacing: 0.5rem;
+      padding: 0.5rem 0;
+      opacity: 0.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      .info-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .container { padding: 1rem; }
+      .card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background effects -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <span class="hero-emoji">🎓</span>
+      <h1>教學訓練計畫<br>主持人工作坊</h1>
+      <p class="subtitle">✨ Teaching Training Program Host Workshop ✨</p>
+    </section>
+
+    <!-- Event Info -->
+    <div class="card delay-1">
+      <div class="card-title">
+        <span class="icon">📋</span> 活動資訊
+      </div>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="emoji">📅</span>
+          <div>
+            <div class="label">日期</div>
+            <div class="value">2026 / 01 / 25</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="emoji">⏰</span>
+          <div>
+            <div class="label">時間</div>
+            <div class="value">9:00 ~ 16:00</div>
+          </div>
+        </div>
+        <div class="info-item" style="grid-column: 1 / -1;">
+          <span class="emoji">📍</span>
+          <div>
+            <div class="label">地點</div>
+            <div class="value">奇美醫院 第五醫療大樓 6樓 563會議室</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider">💜 ✦ 💜 ✦ 💜</div>
+
+    <!-- Registration Fields -->
+    <div class="card delay-2">
+      <div class="card-title">
+        <span class="icon">📝</span> 報名資訊欄位
+      </div>
+      <div class="form-fields">
+        <div class="form-field">
+          <span class="field-emoji">👤</span>
+          <span class="field-name">姓名</span>
+        </div>
+        <div class="form-field">
+          <span class="field-emoji">🏥</span>
+          <span class="field-name">機構名</span>
+        </div>
+        <div class="form-field">
+          <span class="field-emoji">💼</span>
+          <span class="field-name">職稱</span>
+        </div>
+        <div class="form-field">
+          <span class="field-emoji">📧</span>
+          <span class="field-name">Email</span>
+        </div>
+        <div class="form-field">
+          <span class="field-emoji">📞</span>
+          <span class="field-name">聯繫電話</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="card delay-3">
+      <div class="card-title">
+        <span class="icon">🏷️</span> 負責的職類
+      </div>
+      <p style="color: #c4b5fd; margin-bottom: 0.5rem; font-size: 0.9rem;">下拉式選單選擇</p>
+      <div class="tags">
+        <span class="tag">💊 藥事</span>
+        <span class="tag">🩻 醫事放射</span>
+        <span class="tag">🔬 醫事檢驗</span>
+        <span class="tag">🩺 護理</span>
+        <span class="tag">🥗 營養</span>
+        <span class="tag">🫁 呼吸治療</span>
+        <span class="tag">👂 聽力</span>
+        <span class="tag">🦿 物理治療</span>
+        <span class="tag">🧠 職能治療</span>
+        <span class="tag">🧩 臨床心理</span>
+        <span class="tag">🗣️ 語言治療</span>
+        <span class="tag">📎 其他</span>
+      </div>
+    </div>
+
+    <!-- Participation Options -->
+    <div class="card delay-4">
+      <div class="card-title">
+        <span class="icon">🙋</span> 參與方式
+      </div>
+
+      <p style="font-weight: 500; margin-bottom: 0.5rem;">您目前是否擔任教學訓練計畫主持人？</p>
+      <div class="options">
+        <div class="option-btn">✅ 是</div>
+        <div class="option-btn">❌ 否</div>
+      </div>
+
+      <p style="font-weight: 500; margin-top: 1.5rem; margin-bottom: 0.5rem;">您預計以何種方式參與？</p>
+      <div class="options">
+        <div class="option-btn">🏢 實體</div>
+        <div class="option-btn">💻 線上</div>
+      </div>
+    </div>
+
+    <div class="section-divider">🌟 ✦ 🌟 ✦ 🌟</div>
+
+    <!-- Contact -->
+    <div class="card delay-5">
+      <div class="card-title">
+        <span class="icon">📞</span> 聯絡資訊
+      </div>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="c-emoji">🏥</span>
+          <div class="c-label">主辦單位</div>
+          <div class="c-value">奇美醫院 教學部</div>
+        </div>
+        <div class="contact-item">
+          <span class="c-emoji">🙋‍♂️</span>
+          <div class="c-label">聯絡人</div>
+          <div class="c-value">陳大頭</div>
+        </div>
+        <div class="contact-item" style="grid-column: 1 / -1;">
+          <span class="c-emoji">☎️</span>
+          <div class="c-label">聯繫電話</div>
+          <div class="c-value">06-281-2811 分機 57112233</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="org">🏥 奇美醫院教學部 🏥</div>
+      <p>💜 教學訓練計畫主持人工作坊 💜</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Create floating emoji particles
+    const emojis = ['🎓', '✨', '📚', '💜', '🌟', '🎯', '💡', '🩺', '🏥', '⭐'];
+    const container = document.getElementById('particles');
+
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDuration = (8 + Math.random() * 12) + 's';
+      particle.style.animationDelay = (Math.random() * 10) + 's';
+      particle.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+      container.appendChild(particle);
+    }
+  </script>
+</body>
+</html>
