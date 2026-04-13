@@ -55,9 +55,43 @@ function doPost(e) {
   }
 }
 
-// 處理 GET 請求（測試用）
+// 處理 GET 請求（回傳報名資料供儀表板使用）
 function doGet(e) {
-  return createResponse(true, "Apps Script 已就緒！");
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("工作坊報名資料");
+
+    if (!sheet) {
+      return createResponse(false, "找不到「工作坊報名資料」分頁");
+    }
+
+    var lastRow = sheet.getLastRow();
+    if (lastRow <= 1) {
+      var output = JSON.stringify({ success: true, data: [], headers: [] });
+      return ContentService.createTextOutput(output).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    var headers = sheet.getRange(1, 1, 1, 9).getValues()[0];
+    var rows = sheet.getRange(2, 1, lastRow - 1, 9).getValues();
+
+    var data = rows.map(function(row) {
+      return {
+        timestamp:  row[0],
+        name:       row[1],
+        org:        row[2],
+        title:      row[3],
+        category:   row[4],
+        isHost:     row[5],
+        joinMethod: row[6],
+        email:      row[7],
+        phone:      row[8]
+      };
+    });
+
+    var output = JSON.stringify({ success: true, data: data, total: data.length });
+    return ContentService.createTextOutput(output).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return createResponse(false, "發生錯誤：" + error.message);
+  }
 }
 
 // 建立 JSON 回應（支援 CORS）

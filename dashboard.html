@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 報名現況儀表板 - 教學訓練計畫主持人工作坊</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a0533 0%, #4a1a7a 25%, #7b2fbe 50%, #a855f7 75%, #c084fc 100%);
+      background-attachment: fixed;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Glowing orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.25;
+      animation: orbMove 8s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    .orb-1 { width: 300px; height: 300px; background: #a855f7; top: 5%; left: 5%; }
+    .orb-2 { width: 350px; height: 350px; background: #7c3aed; top: 40%; right: 5%; animation-delay: -3s; }
+    .orb-3 { width: 250px; height: 250px; background: #c084fc; bottom: 5%; left: 25%; animation-delay: -5s; }
+
+    @keyframes orbMove {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, -30px) scale(1.15); }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 2rem 1rem 1.5rem;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .header-emoji {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 0.8rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .header h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #f0abfc, #fff, #e9d5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.3rem;
+    }
+
+    .header .subtitle {
+      font-size: 1rem;
+      color: #c4b5fd;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    /* Refresh button */
+    .refresh-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.8s ease-out 0.1s both;
+    }
+
+    .last-update {
+      font-size: 0.85rem;
+      color: #c4b5fd;
+    }
+
+    .refresh-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 10px;
+      border: 2px solid rgba(168, 85, 247, 0.5);
+      background: rgba(168, 85, 247, 0.2);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: 'Noto Sans TC', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .refresh-btn:hover {
+      background: rgba(168, 85, 247, 0.4);
+      border-color: #c084fc;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+    }
+
+    .refresh-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .refresh-btn .spin {
+      display: inline-block;
+      animation: rotate 1s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Stat cards row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 1.3rem 1rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(168, 85, 247, 0.25);
+      border-color: rgba(168, 85, 247, 0.4);
+    }
+
+    .stat-card .stat-emoji {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-card .stat-number {
+      font-size: 2.2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #c084fc, #f0abfc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.85rem;
+      color: #c4b5fd;
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+
+    /* Chart cards */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .chart-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+
+    .chart-card:hover {
+      box-shadow: 0 12px 40px rgba(168, 85, 247, 0.2);
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+
+    .chart-card.full-width {
+      grid-column: 1 / -1;
+      animation-delay: 0.5s;
+    }
+
+    .chart-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-height: 300px;
+    }
+
+    /* Table card */
+    .table-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.8s ease-out 0.6s both;
+      overflow: hidden;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+
+    thead th {
+      background: rgba(168, 85, 247, 0.3);
+      padding: 0.8rem 0.6rem;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      border-bottom: 2px solid rgba(168, 85, 247, 0.5);
+    }
+
+    thead th:first-child {
+      border-radius: 10px 0 0 0;
+    }
+
+    thead th:last-child {
+      border-radius: 0 10px 0 0;
+    }
+
+    tbody tr {
+      transition: background 0.2s;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    tbody td {
+      padding: 0.7rem 0.6rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .badge-onsite {
+      background: rgba(34, 197, 94, 0.25);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .badge-online {
+      background: rgba(59, 130, 246, 0.25);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-yes {
+      background: rgba(168, 85, 247, 0.3);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.4);
+    }
+
+    .badge-no {
+      background: rgba(251, 146, 60, 0.25);
+      color: #fdba74;
+      border: 1px solid rgba(251, 146, 60, 0.3);
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #c4b5fd;
+    }
+
+    .empty-state .empty-emoji {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .empty-state p {
+      font-size: 1.1rem;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: #c4b5fd;
+      font-size: 1.2rem;
+    }
+
+    .loading .load-emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 1rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    /* Org ranking */
+    .org-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .org-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      transition: background 0.2s;
+    }
+
+    .org-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .org-rank {
+      font-size: 1.2rem;
+      width: 2rem;
+      text-align: center;
+    }
+
+    .org-name {
+      flex: 1;
+      font-weight: 600;
+    }
+
+    .org-bar-wrapper {
+      flex: 2;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .org-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .org-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7c3aed, #c084fc);
+      border-radius: 4px;
+      transition: width 0.8s ease-out;
+    }
+
+    .org-count {
+      font-weight: 700;
+      color: #c084fc;
+      min-width: 2rem;
+      text-align: right;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 1.5rem 0;
+      color: #c4b5fd;
+      font-size: 0.85rem;
+      animation: fadeInUp 0.8s ease-out 0.7s both;
+    }
+
+    .footer a {
+      color: #c084fc;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: #e9d5ff;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .charts-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.8rem; }
+      .container { padding: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-card .stat-number { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header class="header">
+      <span class="header-emoji">📊</span>
+      <h1>報名現況儀表板</h1>
+      <p class="subtitle">🎓 教學訓練計畫主持人工作坊 ・ 2026/01/25</p>
+    </header>
+
+    <!-- Refresh bar -->
+    <div class="refresh-bar">
+      <span class="last-update" id="lastUpdate">⏳ 載入中...</span>
+      <button class="refresh-btn" id="refreshBtn" onclick="loadData()">🔄 重新整理</button>
+    </div>
+
+    <!-- Content area -->
+    <div id="content">
+      <div class="loading">
+        <span class="load-emoji">📡</span>
+        <p>正在從 Google Sheets 載入資料...</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>🏥 奇美醫院教學部 ｜ <a href="index.html">前往報名頁面 →</a></p>
+    </footer>
+
+  </div>
+
+  <script>
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWunr6nQAjjfdvJKJ5eyesHkuLg6bE7FsiTN57uWcM6LQrCbeGBbeak4TecjSu2E9C/exec";
+
+    let categoryChart = null;
+    let joinChart = null;
+    let hostChart = null;
+
+    // Color palette
+    const COLORS = [
+      '#c084fc', '#a855f7', '#7c3aed', '#6d28d9',
+      '#f0abfc', '#e879f9', '#d946ef', '#c026d3',
+      '#818cf8', '#6366f1', '#4f46e5', '#4338ca'
+    ];
+
+    async function loadData() {
+      const btn = document.getElementById('refreshBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spin">🔄</span> 載入中...';
+
+      try {
+        const res = await fetch(APPS_SCRIPT_URL);
+        const json = await res.json();
+
+        if (!json.success) {
+          throw new Error(json.message || '載入失敗');
+        }
+
+        renderDashboard(json.data || []);
+        document.getElementById('lastUpdate').textContent =
+          '🕐 最後更新：' + new Date().toLocaleString('zh-TW');
+      } catch (err) {
+        document.getElementById('content').innerHTML =
+          '<div class="empty-state"><span class="empty-emoji">⚠️</span><p>載入資料時發生錯誤，請稍後再試</p><p style="font-size:0.85rem;margin-top:0.5rem;color:#a78bfa;">' + err.message + '</p></div>';
+        document.getElementById('lastUpdate').textContent = '❌ 載入失敗';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '🔄 重新整理';
+      }
+    }
+
+    function renderDashboard(data) {
+      if (data.length === 0) {
+        document.getElementById('content').innerHTML =
+          '<div class="empty-state"><span class="empty-emoji">📭</span><p>目前尚無報名資料</p><p style="font-size:0.9rem;margin-top:0.5rem;">等待第一位報名者！</p></div>';
+        return;
+      }
+
+      // Calculate stats
+      const total = data.length;
+      const onsiteCount = data.filter(d => d.joinMethod === '實體').length;
+      const onlineCount = data.filter(d => d.joinMethod === '線上').length;
+      const hostYes = data.filter(d => d.isHost === '是').length;
+      const hostNo = data.filter(d => d.isHost === '否').length;
+      const orgSet = new Set(data.map(d => d.org).filter(Boolean));
+
+      // Category counts
+      const catCounts = {};
+      data.forEach(d => {
+        if (d.category) catCounts[d.category] = (catCounts[d.category] || 0) + 1;
+      });
+      const catLabels = Object.keys(catCounts);
+      const catValues = Object.values(catCounts);
+
+      // Org counts (top 5)
+      const orgCounts = {};
+      data.forEach(d => {
+        if (d.org) orgCounts[d.org] = (orgCounts[d.org] || 0) + 1;
+      });
+      const orgSorted = Object.entries(orgCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+      const maxOrgCount = orgSorted.length > 0 ? orgSorted[0][1] : 1;
+
+      const rankEmojis = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+
+      // Build HTML
+      let html = '';
+
+      // Stat cards
+      html += '<div class="stats-row">';
+      html += '<div class="stat-card"><span class="stat-emoji">👥</span><div class="stat-number">' + total + '</div><div class="stat-label">報名總人數</div></div>';
+      html += '<div class="stat-card"><span class="stat-emoji">🏢</span><div class="stat-number">' + onsiteCount + '</div><div class="stat-label">實體參與</div></div>';
+      html += '<div class="stat-card"><span class="stat-emoji">💻</span><div class="stat-number">' + onlineCount + '</div><div class="stat-label">線上參與</div></div>';
+      html += '<div class="stat-card"><span class="stat-emoji">🏥</span><div class="stat-number">' + orgSet.size + '</div><div class="stat-label">報名機構數</div></div>';
+      html += '</div>';
+
+      // Charts row
+      html += '<div class="charts-grid">';
+
+      // Category chart
+      html += '<div class="chart-card"><div class="chart-title">🏷️ 各職類報名人數</div><div class="chart-container"><canvas id="categoryChart"></canvas></div></div>';
+
+      // Join method chart
+      html += '<div class="chart-card"><div class="chart-title">🖥️ 參與方式分佈</div><div class="chart-container"><canvas id="joinChart"></canvas></div></div>';
+
+      // Host chart
+      html += '<div class="chart-card"><div class="chart-title">🎯 是否擔任主持人</div><div class="chart-container"><canvas id="hostChart"></canvas></div></div>';
+
+      // Org ranking
+      html += '<div class="chart-card"><div class="chart-title">🏆 報名機構排行</div><div class="org-list">';
+      if (orgSorted.length === 0) {
+        html += '<div style="text-align:center;color:#c4b5fd;padding:1rem;">無資料</div>';
+      } else {
+        orgSorted.forEach(function(item, i) {
+          var pct = (item[1] / maxOrgCount * 100);
+          html += '<div class="org-item">';
+          html += '<span class="org-rank">' + rankEmojis[i] + '</span>';
+          html += '<span class="org-name">' + escapeHtml(item[0]) + '</span>';
+          html += '<div class="org-bar-wrapper"><div class="org-bar"><div class="org-bar-fill" style="width:' + pct + '%"></div></div>';
+          html += '<span class="org-count">' + item[1] + '</span></div>';
+          html += '</div>';
+        });
+      }
+      html += '</div></div>';
+
+      html += '</div>'; // end charts-grid
+
+      // Data table
+      html += '<div class="table-card"><div class="chart-title">📋 報名明細</div><div class="table-wrapper"><table>';
+      html += '<thead><tr><th>#</th><th>時間</th><th>姓名</th><th>機構</th><th>職稱</th><th>職類</th><th>主持人</th><th>參與方式</th><th>Email</th><th>電話</th></tr></thead>';
+      html += '<tbody>';
+      data.forEach(function(d, i) {
+        var hostBadge = d.isHost === '是'
+          ? '<span class="badge badge-yes">✅ 是</span>'
+          : '<span class="badge badge-no">❌ 否</span>';
+        var joinBadge = d.joinMethod === '實體'
+          ? '<span class="badge badge-onsite">🏢 實體</span>'
+          : '<span class="badge badge-online">💻 線上</span>';
+        html += '<tr>';
+        html += '<td>' + (i + 1) + '</td>';
+        html += '<td>' + escapeHtml(String(d.timestamp || '')) + '</td>';
+        html += '<td>' + escapeHtml(d.name || '') + '</td>';
+        html += '<td>' + escapeHtml(d.org || '') + '</td>';
+        html += '<td>' + escapeHtml(d.title || '') + '</td>';
+        html += '<td>' + escapeHtml(d.category || '') + '</td>';
+        html += '<td>' + hostBadge + '</td>';
+        html += '<td>' + joinBadge + '</td>';
+        html += '<td>' + escapeHtml(d.email || '') + '</td>';
+        html += '<td>' + escapeHtml(d.phone || '') + '</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div></div>';
+
+      document.getElementById('content').innerHTML = html;
+
+      // Render charts
+      renderCategoryChart(catLabels, catValues);
+      renderJoinChart(onsiteCount, onlineCount);
+      renderHostChart(hostYes, hostNo);
+    }
+
+    function renderCategoryChart(labels, values) {
+      if (categoryChart) categoryChart.destroy();
+      var ctx = document.getElementById('categoryChart');
+      if (!ctx) return;
+      categoryChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: values,
+            backgroundColor: COLORS.slice(0, labels.length),
+            borderRadius: 8,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: 'y',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(30, 10, 60, 0.9)',
+              titleColor: '#e9d5ff',
+              bodyColor: '#fff',
+              borderColor: '#7c3aed',
+              borderWidth: 1,
+              cornerRadius: 10
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: { color: '#c4b5fd', stepSize: 1, font: { weight: '600' } },
+              grid: { color: 'rgba(255,255,255,0.05)' }
+            },
+            y: {
+              ticks: { color: '#e9d5ff', font: { size: 12, weight: '600' } },
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    function renderJoinChart(onsite, online) {
+      if (joinChart) joinChart.destroy();
+      var ctx = document.getElementById('joinChart');
+      if (!ctx) return;
+      joinChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['🏢 實體', '💻 線上'],
+          datasets: [{
+            data: [onsite, online],
+            backgroundColor: ['#22c55e', '#3b82f6'],
+            borderColor: 'rgba(26, 5, 51, 0.5)',
+            borderWidth: 3,
+            hoverOffset: 10
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '55%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#e9d5ff', font: { size: 14, weight: '600' }, padding: 20 }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(30, 10, 60, 0.9)',
+              titleColor: '#e9d5ff',
+              bodyColor: '#fff',
+              borderColor: '#7c3aed',
+              borderWidth: 1,
+              cornerRadius: 10
+            }
+          }
+        }
+      });
+    }
+
+    function renderHostChart(yes, no) {
+      if (hostChart) hostChart.destroy();
+      var ctx = document.getElementById('hostChart');
+      if (!ctx) return;
+      hostChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['✅ 是', '❌ 否'],
+          datasets: [{
+            data: [yes, no],
+            backgroundColor: ['#a855f7', '#fb923c'],
+            borderColor: 'rgba(26, 5, 51, 0.5)',
+            borderWidth: 3,
+            hoverOffset: 10
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '55%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#e9d5ff', font: { size: 14, weight: '600' }, padding: 20 }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(30, 10, 60, 0.9)',
+              titleColor: '#e9d5ff',
+              bodyColor: '#fff',
+              borderColor: '#7c3aed',
+              borderWidth: 1,
+              cornerRadius: 10
+            }
+          }
+        }
+      });
+    }
+
+    function escapeHtml(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
+
+    // Load on page ready
+    loadData();
+  </script>
+</body>
+</html>
