@@ -214,13 +214,14 @@
     .nav-pill {
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      padding: 0.45rem 1rem;
+      padding: 0.45rem 0.95rem;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.25s ease;
+      cursor: pointer;
     }
 
     .nav-pill:hover {
@@ -228,6 +229,18 @@
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
+    }
+
+    .nav-pill.sheets-link {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #a7f3d0;
+    }
+
+    .nav-pill.sheets-link:hover {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.45);
     }
 
     /* Hero Section */
@@ -376,7 +389,7 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.75rem;
       margin-bottom: 1.5rem;
     }
 
@@ -428,6 +441,54 @@
 
     .glass-panel:hover {
       border-color: rgba(192, 132, 252, 0.45);
+    }
+
+    /* Google Sheets Connection Bar inside Form */
+    .sheets-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding: 0.85rem 1.1rem;
+      border-radius: 16px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+    }
+
+    .sheets-status-info {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: #d1fae5;
+      font-weight: 600;
+    }
+
+    .sheets-action-btns {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .mini-action-btn {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .mini-action-btn:hover {
+      background: var(--accent-magenta);
+      border-color: var(--accent-magenta);
     }
 
     /* Form Styling */
@@ -625,14 +686,15 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .submit-btn:hover {
+    .submit-btn:hover:not(:disabled) {
       transform: translateY(-3px) scale(1.01);
       box-shadow: 0 15px 35px rgba(236, 72, 153, 0.65);
       filter: brightness(1.08);
     }
 
-    .submit-btn:active {
-      transform: translateY(1px);
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: wait;
     }
 
     /* Right Column: Visual Dashboard */
@@ -846,9 +908,81 @@
       color: #a5f3fc;
     }
 
+    /* Google Sheets Integration Helper Section */
+    .sheets-guide-section {
+      margin-top: 2.5rem;
+    }
+
+    .headers-preview-table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: 16px;
+      border: 1px solid rgba(192, 132, 252, 0.35);
+    }
+
+    .headers-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 720px;
+    }
+
+    .headers-table th {
+      background: linear-gradient(90deg, #4c1d95, #6d28d9);
+      color: #fff;
+      padding: 0.75rem 0.9rem;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      font-weight: 800;
+    }
+
+    .headers-table td {
+      background: rgba(15, 3, 34, 0.65);
+      color: var(--text-secondary);
+      padding: 0.65rem 0.9rem;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.8rem;
+    }
+
+    .url-config-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .url-config-row input {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .btn-secondary {
+      padding: 0.8rem 1.25rem;
+      border-radius: 14px;
+      border: 1px solid rgba(34, 211, 238, 0.5);
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.22), rgba(168, 85, 247, 0.3));
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(34, 211, 238, 0.3);
+    }
+
     /* Organizer Footer Card */
     .organizer-footer {
-      margin-top: 3rem;
+      margin-top: 2.5rem;
       border-radius: 28px;
       padding: 2rem 2.2rem;
       background: linear-gradient(135deg, rgba(46, 16, 101, 0.8), rgba(19, 4, 43, 0.9));
@@ -919,7 +1053,7 @@
       background: linear-gradient(145deg, #2e1065, #1e0538);
       border: 2px solid #ec4899;
       border-radius: 28px;
-      max-width: 480px;
+      max-width: 500px;
       width: 100%;
       padding: 2.2rem;
       box-shadow: 0 0 50px rgba(236, 72, 153, 0.5);
@@ -939,10 +1073,10 @@
       border: 1px dashed rgba(255, 255, 255, 0.35);
       border-radius: 18px;
       padding: 1.25rem;
-      margin: 1.25rem 0 1.5rem;
+      margin: 1.1rem 0 1.3rem;
       display: grid;
       gap: 0.55rem;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
 
     .ticket-row {
@@ -950,11 +1084,35 @@
       justify-content: space-between;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding-bottom: 0.4rem;
+      gap: 1rem;
     }
 
     .ticket-row:last-child {
       border-bottom: none;
       padding-bottom: 0;
+    }
+
+    .sync-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-top: 0.35rem;
+    }
+
+    .sync-status-pill.synced {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #a7f3d0;
+    }
+
+    .sync-status-pill.local {
+      background: rgba(251, 191, 36, 0.2);
+      border: 1px solid rgba(251, 191, 36, 0.5);
+      color: #fde68a;
     }
 
     .close-modal-btn {
@@ -1002,7 +1160,8 @@
         <a href="#event-info" class="nav-pill">📅 活動資訊</a>
         <a href="#registration-section" class="nav-pill">✍️ 線上報名</a>
         <a href="#dashboard-section" class="nav-pill">📊 即時視覺化數據</a>
-        <a href="#contact-footer" class="nav-pill">📞 聯絡我們</a>
+        <a href="#sheets-config-section" class="nav-pill">⚙️ Google Sheets 串接</a>
+        <a href="https://docs.google.com/spreadsheets/d/1DXp8rcOjWTABT6Dg2Q6zdTXD7lhIay7DP2TNcGsBrto/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="nav-pill sheets-link">📗 開啟「工作坊報名資料」試算表</a>
       </div>
     </nav>
 
@@ -1055,7 +1214,19 @@
       <section class="glass-panel" id="registration-section">
         <div class="section-title-wrap">
           <h2 class="section-title">📝 立即報名參加</h2>
-          <span class="section-badge">⚡ 互動式報名表單</span>
+          <span class="section-badge">⚡ 支援匯入 Google Sheets</span>
+        </div>
+
+        <!-- Google Sheets Status Bar -->
+        <div class="sheets-status-bar">
+          <div class="sheets-status-info">
+            <span>📗 目標試算表分頁：<strong>工作坊報名資料</strong></span>
+            <span id="gas-connection-badge" style="font-size: 0.78rem; padding: 0.15rem 0.55rem; border-radius: 999px; background: rgba(251, 191, 36, 0.25); color: #fde68a;">⚙️ 待設定 Web App 網址</span>
+          </div>
+          <div class="sheets-action-btns">
+            <a href="#sheets-config-section" class="mini-action-btn">🔗 設定 Apps Script 網址</a>
+            <a href="https://docs.google.com/spreadsheets/d/1DXp8rcOjWTABT6Dg2Q6zdTXD7lhIay7DP2TNcGsBrto/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="mini-action-btn">📊 查看試算表</a>
+          </div>
         </div>
 
         <form id="workshop-form">
@@ -1227,8 +1398,8 @@
 
             <!-- 送出按鈕 -->
             <div class="form-group full-width">
-              <button type="submit" class="submit-btn">
-                <span>🚀 送出報名資料並生成專屬通行證</span>
+              <button type="submit" class="submit-btn" id="submit-btn">
+                <span id="submit-btn-text">🚀 送出報名資料並匯入 Google Sheets</span>
                 <span>🎉</span>
               </button>
             </div>
@@ -1314,6 +1485,81 @@
       </aside>
     </main>
 
+    <!-- Google Sheets & Apps Script Configuration Panel -->
+    <section class="glass-panel sheets-guide-section" id="sheets-config-section">
+      <div class="section-title-wrap">
+        <h2 class="section-title">☁️ Google Sheets「工作坊報名資料」串接與表頭設定</h2>
+        <span class="section-badge">📗 Sheet ID: 1DXp8rcOjWTABT6Dg2Q6zdTXD7lhIay7DP2TNcGsBrto</span>
+      </div>
+
+      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem;">
+        本網頁已依據表單欄位建立對應的 Google Sheets 表頭（<strong>A1:I1</strong>）與 Apps Script 程式碼（<code>Code.gs</code>）。您可直接一鍵複製表頭貼至試算表第一列，或透過 Apps Script 自動建立「<strong>工作坊報名資料</strong>」分頁與表頭！✨
+      </p>
+
+      <!-- Preview of A1:I1 Headers -->
+      <div class="headers-preview-table-wrap">
+        <table class="headers-table">
+          <thead>
+            <tr>
+              <th>A1: 報名時間</th>
+              <th>B1: 姓名</th>
+              <th>C1: 機構名</th>
+              <th>D1: 職稱</th>
+              <th>E1: 負責的職類</th>
+              <th>F1: 是否擔任教學訓練計畫主持人</th>
+              <th>G1: 參與方式</th>
+              <th>H1: Email</th>
+              <th>I1: 聯繫電話</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026/01/25 09:00:00</td>
+              <td>王小明</td>
+              <td>奇美醫院</td>
+              <td>護理長</td>
+              <td>護理</td>
+              <td>是</td>
+              <td>實體</td>
+              <td>ming@mail.chimei.org.tw</td>
+              <td>0912-345-678</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <button type="button" class="btn-secondary" id="copy-headers-btn">
+          📋 一鍵複製 Google Sheets 表頭 (直接貼上 A1 即可自動分欄)
+        </button>
+        <a href="https://docs.google.com/spreadsheets/d/1DXp8rcOjWTABT6Dg2Q6zdTXD7lhIay7DP2TNcGsBrto/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          📗 開啟目標 Google Sheets 試算表
+        </a>
+      </div>
+
+      <!-- Apps Script Web App URL Input -->
+      <div class="form-group">
+        <label class="form-label" for="gas-url-input">
+          🔗 Google Apps Script 部署後的「網頁應用程式網址 (Web App URL)」：
+        </label>
+        <div class="url-config-row">
+          <input
+            type="url"
+            id="gas-url-input"
+            class="input-control"
+            placeholder="請貼上部署後的 https://script.google.com/macros/s/....../exec 網址"
+          />
+          <button type="button" class="btn-secondary" id="save-gas-url-btn">
+            💾 儲存串接網址
+          </button>
+          <button type="button" class="btn-secondary" id="sync-from-sheets-btn">
+            🔄 從試算表讀取最新數據
+          </button>
+        </div>
+        <div id="gas-save-msg" style="font-size: 0.84rem; color: #a7f3d0; margin-top: 0.35rem;"></div>
+      </div>
+    </section>
+
     <!-- Organizer & Contact Footer -->
     <footer class="organizer-footer" id="contact-footer">
       <div class="organizer-details">
@@ -1352,10 +1598,8 @@
   <div class="modal-backdrop" id="success-modal">
     <div class="ticket-modal">
       <div style="font-size: 3.2rem; margin-bottom: 0.3rem;">🎉🎓✨</div>
-      <h3 style="font-size: 1.55rem; font-weight: 900; margin-bottom: 0.3rem;">報名成功！專屬活動通行證</h3>
-      <p style="color: var(--text-secondary); font-size: 0.92rem;">
-        您的報名資料已同步更新至視覺化儀表板 💜
-      </p>
+      <h3 style="font-size: 1.55rem; font-weight: 900; margin-bottom: 0.25rem;">報名成功！專屬活動通行證</h3>
+      <div id="modal-sync-badge-wrap"></div>
 
       <div class="ticket-box" id="ticket-details"></div>
 
@@ -1366,6 +1610,40 @@
   </div>
 
   <script>
+    /**
+     * =========================================================================
+     * Google Sheets 與 Apps Script 串接設定
+     * 試算表：https://docs.google.com/spreadsheets/d/1DXp8rcOjWTABT6Dg2Q6zdTXD7lhIay7DP2TNcGsBrto/edit?gid=0#gid=0
+     * 分頁名稱：工作坊報名資料
+     * =========================================================================
+     */
+    const SPREADSHEET_ID = '1DXp8rcOjWTABT6Dg2Q6zdTXD7lhIay7DP2TNcGsBrto';
+    const TARGET_SHEET_NAME = '工作坊報名資料';
+
+    // 若您已取得部署後的 Apps Script Web App 網址，可直接填在下方的 DEFAULT_GAS_WEB_APP_URL，或在網頁下方設定欄貼上儲存
+    const DEFAULT_GAS_WEB_APP_URL = '';
+
+    function getGasUrl() {
+      return localStorage.getItem('workshop_gas_webapp_url') || DEFAULT_GAS_WEB_APP_URL;
+    }
+
+    function updateGasBadge() {
+      const url = getGasUrl();
+      const badge = document.getElementById('gas-connection-badge');
+      const input = document.getElementById('gas-url-input');
+      if (input && url) input.value = url;
+
+      if (url && url.startsWith('https://script.google.com/')) {
+        badge.textContent = '🟢 已連結 Google Sheets Web App';
+        badge.style.background = 'rgba(16, 185, 129, 0.25)';
+        badge.style.color = '#a7f3d0';
+      } else {
+        badge.textContent = '⚙️ 待設定 Web App 網址 (下方可貼上)';
+        badge.style.background = 'rgba(251, 191, 36, 0.25)';
+        badge.style.color = '#fde68a';
+      }
+    }
+
     // 12 Healthcare Categories with Emojis
     const CATEGORIES = [
       { name: '藥事', emoji: '💊' },
@@ -1523,6 +1801,70 @@
       categoryTags.forEach(t => t.classList.toggle('active', t.dataset.cat === val));
     });
 
+    // Copy Google Sheets Headers (Tab-separated for direct paste into A1:I1)
+    document.getElementById('copy-headers-btn').addEventListener('click', async () => {
+      const tabHeaders = [
+        '報名時間',
+        '姓名',
+        '機構名',
+        '職稱',
+        '負責的職類',
+        '是否擔任教學訓練計畫主持人',
+        '參與方式',
+        'Email',
+        '聯繫電話'
+      ].join('\t');
+
+      try {
+        await navigator.clipboard.writeText(tabHeaders);
+        const btn = document.getElementById('copy-headers-btn');
+        const original = btn.innerHTML;
+        btn.innerHTML = '✅ 已複製表頭！請至試算表點選 A1 儲存格直接貼上 (Ctrl+V)';
+        setTimeout(() => { btn.innerHTML = original; }, 3500);
+      } catch (err) {
+        alert('請複製以下表頭：\n' + tabHeaders);
+      }
+    });
+
+    // Save GAS Web App URL
+    document.getElementById('save-gas-url-btn').addEventListener('click', () => {
+      const val = document.getElementById('gas-url-input').value.trim();
+      localStorage.setItem('workshop_gas_webapp_url', val);
+      updateGasBadge();
+      const msgEl = document.getElementById('gas-save-msg');
+      msgEl.textContent = val
+        ? '✅ 已成功儲存 Apps Script 網頁應用程式網址！現在送出表單將自動匯入「工作坊報名資料」分頁。'
+        : '⚠️ 已清除網址，表單將暫存於本機儀表板。';
+    });
+
+    // Sync records from Google Sheets (GET)
+    document.getElementById('sync-from-sheets-btn').addEventListener('click', async () => {
+      const gasUrl = getGasUrl();
+      const msgEl = document.getElementById('gas-save-msg');
+      if (!gasUrl) {
+        msgEl.textContent = '⚠️ 請先貼上並儲存部署後的 Apps Script Web App 網址！';
+        return;
+      }
+      msgEl.textContent = '⏳ 正在從 Google Sheets「工作坊報名資料」讀取資料...';
+      try {
+        const res = await fetch(gasUrl);
+        const json = await res.json();
+        if (json.status === 'success' && Array.isArray(json.records)) {
+          if (json.records.length > 0) {
+            participants = json.records;
+            renderDashboard();
+            msgEl.textContent = `🎉 已成功從「工作坊報名資料」同步 ${json.records.length} 筆報名資料！`;
+          } else {
+            msgEl.textContent = 'ℹ️ 目前「工作坊報名資料」分頁尚無報名資料列（表頭已就緒）。';
+          }
+        } else {
+          msgEl.textContent = '⚠️ 讀取回應異常：' + (json.message || '未知原因');
+        }
+      } catch (err) {
+        msgEl.textContent = '⚠️ 無法連線至 Apps Script，請確認部署權限已設為「所有人 (Anyone)」。';
+      }
+    });
+
     // Simple Canvas Confetti Effect
     function fireConfetti() {
       const canvas = document.getElementById('confetti-canvas');
@@ -1565,11 +1907,15 @@
       animate();
     }
 
-    // Form Submission Handler
-    document.getElementById('workshop-form').addEventListener('submit', function(e) {
+    // Form Submission Handler (Sends to Google Sheets via Apps Script + Updates Dashboard)
+    document.getElementById('workshop-form').addEventListener('submit', async function(e) {
       e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      const submitBtnText = document.getElementById('submit-btn-text');
       const formData = new FormData(this);
+
       const entry = {
+        timestamp: new Date().toLocaleString('zh-TW', { hour12: false }),
         name: formData.get('name').trim(),
         organization: formData.get('organization').trim(),
         jobTitle: formData.get('jobTitle').trim(),
@@ -1577,16 +1923,60 @@
         isDirector: formData.get('isDirector'),
         attendanceMode: formData.get('attendanceMode'),
         email: formData.get('email').trim(),
-        phone: formData.get('phone').trim()
+        phone: formData.get('phone').trim(),
+        spreadsheetId: SPREADSHEET_ID,
+        sheetName: TARGET_SHEET_NAME
       };
+
+      const gasUrl = getGasUrl();
+      let syncedToSheets = false;
+
+      if (gasUrl) {
+        submitBtn.disabled = true;
+        submitBtnText.textContent = '⏳ 正在匯入 Google Sheets「工作坊報名資料」...';
+        try {
+          // Use text/plain to avoid CORS preflight OPTIONS failure on Google Apps Script
+          await fetch(gasUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(entry)
+          });
+          syncedToSheets = true;
+        } catch (err) {
+          // Fallback with no-cors if redirect policies block reading response
+          try {
+            await fetch(gasUrl, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+              body: JSON.stringify(entry)
+            });
+            syncedToSheets = true;
+          } catch (innerErr) {
+            syncedToSheets = false;
+          }
+        } finally {
+          submitBtn.disabled = false;
+          submitBtnText.textContent = '🚀 送出報名資料並匯入 Google Sheets';
+        }
+      }
 
       participants.push(entry);
       renderDashboard();
       fireConfetti();
 
+      // Show Sync Status Badge in Modal
+      const badgeWrap = document.getElementById('modal-sync-badge-wrap');
+      if (syncedToSheets) {
+        badgeWrap.innerHTML = `<div class="sync-status-pill synced">✅ 已同步寫入 Google Sheets「工作坊報名資料」分頁</div>`;
+      } else {
+        badgeWrap.innerHTML = `<div class="sync-status-pill local">⚡ 已更新至即時儀表板（設定下方 Web App 網址即可自動匯入雲端試算表）</div>`;
+      }
+
       // Show Digital Pass Modal
       const ticketDetails = document.getElementById('ticket-details');
       ticketDetails.innerHTML = `
+        <div class="ticket-row"><span>🕒 報名時間</span><strong>${entry.timestamp}</strong></div>
         <div class="ticket-row"><span>👤 姓名</span><strong>${entry.name}</strong></div>
         <div class="ticket-row"><span>🏥 機構 / 職稱</span><strong>${entry.organization} ‧ ${entry.jobTitle}</strong></div>
         <div class="ticket-row"><span>🩺 負責的職類</span><strong>${entry.category}</strong></div>
@@ -1594,7 +1984,6 @@
         <div class="ticket-row"><span>🌐 參與方式</span><strong>${entry.attendanceMode}</strong></div>
         <div class="ticket-row"><span>📧 Email</span><strong>${entry.email}</strong></div>
         <div class="ticket-row"><span>📱 聯繫電話</span><strong>${entry.phone}</strong></div>
-        <div class="ticket-row"><span>📍 活動地點</span><strong>奇美醫院第五醫療大樓6樓563會議室</strong></div>
       `;
       document.getElementById('success-modal').classList.add('show');
       this.reset();
@@ -1607,6 +1996,7 @@
 
     // Initialize on Load
     initFloatingEmojis();
+    updateGasBadge();
     renderDashboard();
   </script>
 </body>
