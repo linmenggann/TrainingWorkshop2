@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎓 教學訓練計畫主持人工作坊 ✨ | 奇美醫院教學部</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #120428;
+      --bg-mid: #280952;
+      --bg-vivid: #4c1d95;
+      --bg-glow: #7e22ce;
+      --accent-pink: #f43f5e;
+      --accent-magenta: #ec4899;
+      --accent-violet: #a855f7;
+      --accent-cyan: #22d3ee;
+      --accent-amber: #fbbf24;
+      --accent-emerald: #10b981;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.18);
+      --card-hover-border: rgba(236, 72, 153, 0.65);
+      --text-primary: #ffffff;
+      --text-secondary: #e9d5ff;
+      --text-muted: #c084fc;
+      --shadow-neon: 0 0 25px rgba(168, 85, 247, 0.45), 0 0 60px rgba(236, 72, 153, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Outfit', sans-serif;
+      background: linear-gradient(135deg, #0f0322 0%, #24074d 30%, #461285 65%, #6b21a8 100%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* Animated Purple Nebula & Floating Orbs */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(85px);
+      opacity: 0.55;
+      animation: floatOrb 16s infinite ease-in-out alternate;
+    }
+
+    .orb-1 {
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, #d946ef, #7e22ce);
+      top: -120px;
+      left: -100px;
+      animation-duration: 14s;
+    }
+
+    .orb-2 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, #8b5cf6, #3b0764);
+      bottom: -150px;
+      right: -120px;
+      animation-duration: 18s;
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, #ec4899, #6d28d9);
+      top: 42%;
+      left: 55%;
+      animation-duration: 12s;
+      animation-delay: -3s;
+    }
+
+    .orb-4 {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, #22d3ee, #7c3aed);
+      top: 18%;
+      right: 12%;
+      opacity: 0.35;
+      animation-duration: 15s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, -35px) scale(1.12); }
+      100% { transform: translate(-30px, 45px) scale(0.92); }
+    }
+
+    /* Subtle Cyber Grid Overlay */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating Emoji Particles */
+    .emoji-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .floating-emoji {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.18;
+      animation: riseUp linear infinite;
+      user-select: none;
+    }
+
+    @keyframes riseUp {
+      0% {
+        transform: translateY(105vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.22;
+      }
+      85% {
+        opacity: 0.22;
+      }
+      100% {
+        transform: translateY(-15vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* Main Container */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.5rem;
+      background: rgba(24, 6, 54, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.6);
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-pill {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.25s ease;
+    }
+
+    .nav-pill:hover {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3rem 1.5rem 2.75rem;
+      border-radius: 32px;
+      background: linear-gradient(145deg, rgba(88, 28, 135, 0.55), rgba(30, 7, 62, 0.72));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(216, 180, 254, 0.28);
+      box-shadow: var(--shadow-neon);
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      height: 5px;
+      background: linear-gradient(90deg, #22d3ee, #a855f7, #ec4899, #fbbf24, #22d3ee);
+      background-size: 300% 100%;
+      animation: gradientSlide 6s linear infinite;
+    }
+
+    @keyframes gradientSlide {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1.2rem;
+      border-radius: 999px;
+      background: rgba(236, 72, 153, 0.2);
+      border: 1px solid rgba(236, 72, 153, 0.5);
+      color: #fbcfe8;
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+      animation: pulseBadge 2.5s infinite ease-in-out;
+    }
+
+    @keyframes pulseBadge {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #ffffff 0%, #f5d0fe 40%, #f472b6 75%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 20px rgba(168, 85, 247, 0.4));
+    }
+
+    .hero-subtitle {
+      font-size: 1.12rem;
+      color: var(--text-secondary);
+      max-width: 720px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Event Info Cards inside Hero */
+    .event-info-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--accent-amber);
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .info-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+      text-align: left;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      padding: 1.35rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 12px 30px rgba(34, 211, 238, 0.22);
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .info-icon-box {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.85rem;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.4));
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .info-content .info-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+
+    .info-content .info-value {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* Section Headers */
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.65rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(168, 85, 247, 0.6);
+    }
+
+    .section-badge {
+      font-size: 0.85rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.16);
+      border: 1px solid rgba(34, 211, 238, 0.45);
+      color: #a5f3fc;
+      font-weight: 700;
+    }
+
+    /* Main Content Layout: 2 Columns on Desktop */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Glass Panel */
+    .glass-panel {
+      background: rgba(29, 8, 61, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 2.2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      transition: border-color 0.3s ease;
+    }
+
+    .glass-panel:hover {
+      border-color: rgba(192, 132, 252, 0.45);
+    }
+
+    /* Form Styling */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.35rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .glass-panel {
+        padding: 1.5rem;
+      }
+    }
+
+    .form-label {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: #f3e8ff;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .required-star {
+      color: #fb7185;
+      font-size: 0.9rem;
+    }
+
+    .input-control,
+    .select-control {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      border-radius: 14px;
+      background: rgba(15, 3, 34, 0.65);
+      border: 1.5px solid rgba(192, 132, 252, 0.3);
+      color: #fff;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.25s ease;
+      outline: none;
+    }
+
+    .input-control::placeholder {
+      color: rgba(233, 213, 255, 0.45);
+    }
+
+    .input-control:focus,
+    .select-control:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.18);
+      background: rgba(15, 3, 34, 0.85);
+    }
+
+    .select-control option {
+      background: #1e063d;
+      color: #fff;
+      padding: 0.5rem;
+    }
+
+    /* Quick Fill Chips */
+    .quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.2rem;
+    }
+
+    .chip-btn {
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #e9d5ff;
+      font-size: 0.78rem;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .chip-btn:hover {
+      background: var(--accent-magenta);
+      border-color: var(--accent-magenta);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Category Pills Visual Preview */
+    .category-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.35rem;
+    }
+
+    .cat-tag {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .cat-tag:hover,
+    .cat-tag.active {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: #fff;
+      border-color: #f472b6;
+      box-shadow: 0 0 12px rgba(236, 72, 153, 0.5);
+      transform: scale(1.05);
+    }
+
+    /* Radio Toggle Cards (二擇一) */
+    .radio-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .radio-card {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .radio-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .radio-card-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      padding: 0.95rem 1rem;
+      border-radius: 16px;
+      background: rgba(15, 3, 34, 0.55);
+      border: 2px solid rgba(192, 132, 252, 0.28);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+    }
+
+    .radio-card:hover .radio-card-inner {
+      border-color: rgba(236, 72, 153, 0.6);
+      background: rgba(168, 85, 247, 0.18);
+    }
+
+    .radio-card input[type="radio"]:checked + .radio-card-inner {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.38), rgba(139, 92, 246, 0.45));
+      border-color: #22d3ee;
+      color: #ffffff;
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
+      transform: translateY(-2px);
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      margin-top: 0.6rem;
+      width: 100%;
+      padding: 1.05rem 1.5rem;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #6366f1 100%);
+      color: #ffffff;
+      font-size: 1.15rem;
+      font-weight: 900;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      box-shadow: 0 10px 28px rgba(236, 72, 153, 0.45);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 15px 35px rgba(236, 72, 153, 0.65);
+      filter: brightness(1.08);
+    }
+
+    .submit-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* Right Column: Visual Dashboard */
+    .dashboard-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+
+    .kpi-card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      padding: 1rem 0.85rem;
+      text-align: center;
+      transition: transform 0.25s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-magenta);
+    }
+
+    .kpi-emoji {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .kpi-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #fff, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .kpi-title {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* Progress Split Bars (二擇一視覺化) */
+    .split-stat-box {
+      background: rgba(15, 3, 34, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 1.1rem 1.25rem;
+    }
+
+    .split-stat-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 0.55rem;
+      color: #f3e8ff;
+    }
+
+    .progress-track {
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      display: flex;
+    }
+
+    .progress-fill-a {
+      background: linear-gradient(90deg, #ec4899, #a855f7);
+      height: 100%;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .progress-fill-b {
+      background: linear-gradient(90deg, #22d3ee, #3b82f6);
+      height: 100%;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .split-stat-legend {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.45rem;
+    }
+
+    /* 12 Categories Distribution Chart */
+    .chart-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 0.35rem;
+    }
+
+    .chart-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chart-list::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.5);
+      border-radius: 999px;
+    }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: 112px 1fr 42px;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.85rem;
+    }
+
+    .chart-label {
+      font-weight: 700;
+      color: #f3e8ff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chart-bar-bg {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .chart-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f472b6, #a855f7, #22d3ee);
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .chart-count {
+      text-align: right;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    /* Recent Registrations Feed */
+    .recent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .recent-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.88rem;
+      animation: fadeInSlide 0.4s ease;
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .recent-user {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .avatar-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+    }
+
+    .recent-badges {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .mini-badge {
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      background: rgba(168, 85, 247, 0.25);
+      border: 1px solid rgba(168, 85, 247, 0.5);
+      color: #f3e8ff;
+    }
+
+    .mini-badge.mode-online {
+      background: rgba(34, 211, 238, 0.2);
+      border-color: rgba(34, 211, 238, 0.5);
+      color: #a5f3fc;
+    }
+
+    /* Organizer Footer Card */
+    .organizer-footer {
+      margin-top: 3rem;
+      border-radius: 28px;
+      padding: 2rem 2.2rem;
+      background: linear-gradient(135deg, rgba(46, 16, 101, 0.8), rgba(19, 4, 43, 0.9));
+      border: 1px solid rgba(236, 72, 153, 0.35);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .organizer-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+      align-items: center;
+    }
+
+    .org-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .org-emoji {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(236, 72, 153, 0.2);
+      border: 1px solid rgba(236, 72, 153, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .org-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .org-value {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Digital Ticket Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 2, 22, 0.82);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1.25rem;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .ticket-modal {
+      background: linear-gradient(145deg, #2e1065, #1e0538);
+      border: 2px solid #ec4899;
+      border-radius: 28px;
+      max-width: 480px;
+      width: 100%;
+      padding: 2.2rem;
+      box-shadow: 0 0 50px rgba(236, 72, 153, 0.5);
+      text-align: center;
+      position: relative;
+      animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.88); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .ticket-box {
+      text-align: left;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px dashed rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      padding: 1.25rem;
+      margin: 1.25rem 0 1.5rem;
+      display: grid;
+      gap: 0.55rem;
+      font-size: 0.95rem;
+    }
+
+    .ticket-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.4rem;
+    }
+
+    .ticket-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .close-modal-btn {
+      width: 100%;
+      padding: 0.85rem;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(90deg, #22d3ee, #a855f7);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* Confetti Canvas */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 150;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Purple Gradient Orbs & Grid -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+  </div>
+  <div class="bg-grid"></div>
+  <div class="emoji-particles" id="emoji-particles"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="container">
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+      <a href="#" class="brand-badge">
+        <span class="brand-icon">🎓</span>
+        <span>奇美醫院教學部 ‧ 教學訓練計畫主持人工作坊</span>
+      </a>
+      <div class="nav-links">
+        <a href="#event-info" class="nav-pill">📅 活動資訊</a>
+        <a href="#registration-section" class="nav-pill">✍️ 線上報名</a>
+        <a href="#dashboard-section" class="nav-pill">📊 即時視覺化數據</a>
+        <a href="#contact-footer" class="nav-pill">📞 聯絡我們</a>
+      </div>
+    </nav>
+
+    <!-- Hero & Event Info Section -->
+    <header class="hero" id="event-info">
+      <div class="hero-tag">
+        <span>✨ 2026 年度盛會</span>
+        <span>🔥 跨職類教學領航</span>
+        <span>🚀 實體與線上同步</span>
+      </div>
+      <h1 class="hero-title">🎓 教學訓練計畫主持人工作坊 ✨</h1>
+      <p class="hero-subtitle">
+        匯聚十二大醫事職類教學訓練菁英，共同探索創新醫學教育與訓練計畫主持實務！💜🌟
+      </p>
+
+      <div class="event-info-header">
+        <span>📣 活動資訊 EVENT INFORMATION</span>
+      </div>
+
+      <div class="info-cards-grid">
+        <div class="info-card">
+          <div class="info-icon-box">📅</div>
+          <div class="info-content">
+            <div class="info-label">活動日期 DATE</div>
+            <div class="info-value">2026/01/25</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon-box">⏰</div>
+          <div class="info-content">
+            <div class="info-label">活動時間 TIME</div>
+            <div class="info-value">9:00~16:00</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon-box">📍</div>
+          <div class="info-content">
+            <div class="info-label">活動地點 LOCATION</div>
+            <div class="info-value">奇美醫院第五醫療大樓6樓563會議室</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Interactive Grid: Registration Form + Live Visual Analytics -->
+    <main class="main-grid">
+      <!-- Left: Registration Form -->
+      <section class="glass-panel" id="registration-section">
+        <div class="section-title-wrap">
+          <h2 class="section-title">📝 立即報名參加</h2>
+          <span class="section-badge">⚡ 互動式報名表單</span>
+        </div>
+
+        <form id="workshop-form">
+          <div class="form-grid">
+            <!-- 姓名 -->
+            <div class="form-group">
+              <label class="form-label" for="name">
+                👤 姓名 <span class="required-star">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="input-control"
+                placeholder="請輸入您的真實姓名"
+                required
+              />
+            </div>
+
+            <!-- 機構名 -->
+            <div class="form-group">
+              <label class="form-label" for="organization">
+                🏥 機構名 <span class="required-star">*</span>
+              </label>
+              <input
+                type="text"
+                id="organization"
+                name="organization"
+                class="input-control"
+                placeholder="例如：奇美醫院"
+                required
+              />
+              <div class="quick-chips">
+                <button type="button" class="chip-btn" data-fill-target="organization" data-fill-value="奇美醫院">✨ 奇美醫院</button>
+                <button type="button" class="chip-btn" data-fill-target="organization" data-fill-value="柳營奇美醫院">✨ 柳營奇美醫院</button>
+                <button type="button" class="chip-btn" data-fill-target="organization" data-fill-value="佳里奇美醫院">✨ 佳里奇美醫院</button>
+              </div>
+            </div>
+
+            <!-- 職稱 -->
+            <div class="form-group">
+              <label class="form-label" for="jobTitle">
+                💼 職稱 <span class="required-star">*</span>
+              </label>
+              <input
+                type="text"
+                id="jobTitle"
+                name="jobTitle"
+                class="input-control"
+                placeholder="例如：計畫主持人 / 臨床教師 / 組長"
+                required
+              />
+            </div>
+
+            <!-- 負責的職類：(下拉式選單) -->
+            <div class="form-group">
+              <label class="form-label" for="category">
+                🩺 負責的職類 <span class="required-star">*</span>
+              </label>
+              <select id="category" name="category" class="select-control" required>
+                <option value="" disabled selected>🌟 請選擇負責的職類 (下拉式選單)</option>
+                <option value="藥事">💊 藥事</option>
+                <option value="醫事放射">🩻 醫事放射</option>
+                <option value="醫事檢驗">🧪 醫事檢驗</option>
+                <option value="護理">🩺 護理</option>
+                <option value="營養">🥗 營養</option>
+                <option value="呼吸治療">🫁 呼吸治療</option>
+                <option value="聽力">👂 聽力</option>
+                <option value="物理治療">🏃 物理治療</option>
+                <option value="職能治療">🧩 職能治療</option>
+                <option value="臨床心理">🧠 臨床心理</option>
+                <option value="語言治療">🗣️ 語言治療</option>
+                <option value="其他">✨ 其他</option>
+              </select>
+            </div>
+
+            <!-- 職類互動快選標籤 -->
+            <div class="form-group full-width">
+              <div class="form-label" style="font-size: 0.85rem; color: var(--text-secondary);">
+                🎯 點擊下方職類標籤亦可快速選取：
+              </div>
+              <div class="category-showcase" id="category-tags">
+                <span class="cat-tag" data-cat="藥事">💊 藥事</span>
+                <span class="cat-tag" data-cat="醫事放射">🩻 醫事放射</span>
+                <span class="cat-tag" data-cat="醫事檢驗">🧪 醫事檢驗</span>
+                <span class="cat-tag" data-cat="護理">🩺 護理</span>
+                <span class="cat-tag" data-cat="營養">🥗 營養</span>
+                <span class="cat-tag" data-cat="呼吸治療">🫁 呼吸治療</span>
+                <span class="cat-tag" data-cat="聽力">👂 聽力</span>
+                <span class="cat-tag" data-cat="物理治療">🏃 物理治療</span>
+                <span class="cat-tag" data-cat="職能治療">🧩 職能治療</span>
+                <span class="cat-tag" data-cat="臨床心理">🧠 臨床心理</span>
+                <span class="cat-tag" data-cat="語言治療">🗣️ 語言治療</span>
+                <span class="cat-tag" data-cat="其他">✨ 其他</span>
+              </div>
+            </div>
+
+            <!-- 您目前是否擔任教學訓練計畫主持人(選項二擇一) -->
+            <div class="form-group full-width">
+              <label class="form-label">
+                🏅 您目前是否擔任教學訓練計畫主持人 (選項二擇一) <span class="required-star">*</span>
+              </label>
+              <div class="radio-cards">
+                <label class="radio-card">
+                  <input type="radio" name="isDirector" value="是" checked required />
+                  <div class="radio-card-inner">
+                    <span>🌟 是</span>
+                  </div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="isDirector" value="否" required />
+                  <div class="radio-card-inner">
+                    <span>🌱 否</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- 您預計以何種方式參與(選項二擇一) -->
+            <div class="form-group full-width">
+              <label class="form-label">
+                🌐 您預計以何種方式參與 (選項二擇一) <span class="required-star">*</span>
+              </label>
+              <div class="radio-cards">
+                <label class="radio-card">
+                  <input type="radio" name="attendanceMode" value="實體" checked required />
+                  <div class="radio-card-inner">
+                    <span>🏫 實體</span>
+                  </div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="attendanceMode" value="線上" required />
+                  <div class="radio-card-inner">
+                    <span>💻 線上</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label class="form-label" for="email">
+                📧 Email <span class="required-star">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="input-control"
+                placeholder="example@mail.chimei.org.tw"
+                required
+              />
+            </div>
+
+            <!-- 聯繫電話 -->
+            <div class="form-group">
+              <label class="form-label" for="phone">
+                📱 聯繫電話 <span class="required-star">*</span>
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="input-control"
+                placeholder="例如：0912-345-678 或院內分機"
+                required
+              />
+            </div>
+
+            <!-- 送出按鈕 -->
+            <div class="form-group full-width">
+              <button type="submit" class="submit-btn">
+                <span>🚀 送出報名資料並生成專屬通行證</span>
+                <span>🎉</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Right: Live Visual Analytics Dashboard -->
+      <aside class="glass-panel" id="dashboard-section">
+        <div class="section-title-wrap">
+          <h2 class="section-title">📊 報名視覺化儀表板</h2>
+          <span class="section-badge" id="live-indicator">🟢 即時動態更新</span>
+        </div>
+
+        <div class="dashboard-stack">
+          <!-- KPI Summary Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-emoji">🔥</div>
+              <div class="kpi-num" id="stat-total">0</div>
+              <div class="kpi-title">總報名人數</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-emoji">🏅</div>
+              <div class="kpi-num" id="stat-director-rate">0%</div>
+              <div class="kpi-title">現任主持人比</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-emoji">🏫</div>
+              <div class="kpi-num" id="stat-physical-rate">0%</div>
+              <div class="kpi-title">實體參與比例</div>
+            </div>
+          </div>
+
+          <!-- 二擇一視覺化比例條 1: 是否擔任計畫主持人 -->
+          <div class="split-stat-box">
+            <div class="split-stat-header">
+              <span>🏅 現任教學訓練計畫主持人比例</span>
+              <span id="director-ratio-text">是 0 人 / 否 0 人</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill-a" id="bar-director-yes" style="width: 50%"></div>
+              <div class="progress-fill-b" id="bar-director-no" style="width: 50%"></div>
+            </div>
+            <div class="split-stat-legend">
+              <span>🌟 是 (<span id="pct-director-yes">50%</span>)</span>
+              <span>🌱 否 (<span id="pct-director-no">50%</span>)</span>
+            </div>
+          </div>
+
+          <!-- 二擇一視覺化比例條 2: 參與方式 -->
+          <div class="split-stat-box">
+            <div class="split-stat-header">
+              <span>🌐 參與方式分佈 (實體 vs 線上)</span>
+              <span id="mode-ratio-text">實體 0 人 / 線上 0 人</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill-a" id="bar-mode-physical" style="width: 50%"></div>
+              <div class="progress-fill-b" id="bar-mode-online" style="width: 50%"></div>
+            </div>
+            <div class="split-stat-legend">
+              <span>🏫 實體 (<span id="pct-mode-physical">50%</span>)</span>
+              <span>💻 線上 (<span id="pct-mode-online">50%</span>)</span>
+            </div>
+          </div>
+
+          <!-- 12 職類分佈統計圖 -->
+          <div>
+            <div class="form-label" style="margin-bottom: 0.7rem;">
+              🩺 十二大負責職類報名分佈
+            </div>
+            <div class="chart-list" id="category-chart"></div>
+          </div>
+
+          <!-- 最新報名動態牆 -->
+          <div>
+            <div class="form-label" style="margin-bottom: 0.65rem;">
+              ⚡ 最新報名夥伴動態
+            </div>
+            <div class="recent-list" id="recent-feed"></div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Organizer & Contact Footer -->
+    <footer class="organizer-footer" id="contact-footer">
+      <div class="organizer-details">
+        <div class="org-item">
+          <div class="org-emoji">🏛️</div>
+          <div>
+            <div class="org-label">主辦單位 ORGANIZER</div>
+            <div class="org-value">奇美醫院教學部</div>
+          </div>
+        </div>
+
+        <div class="org-item">
+          <div class="org-emoji">👨‍💼</div>
+          <div>
+            <div class="org-label">聯絡人 CONTACT PERSON</div>
+            <div class="org-value">陳大頭</div>
+          </div>
+        </div>
+
+        <div class="org-item">
+          <div class="org-emoji">☎️</div>
+          <div>
+            <div class="org-label">聯繫電話 PHONE</div>
+            <div class="org-value">06-281-2811分機57112233</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size: 0.88rem; color: var(--text-secondary);">
+        💜 教學訓練計畫主持人工作坊 ‧ 期待您的蒞臨參與 ✨
+      </div>
+    </footer>
+  </div>
+
+  <!-- Confirmation Digital Pass Modal -->
+  <div class="modal-backdrop" id="success-modal">
+    <div class="ticket-modal">
+      <div style="font-size: 3.2rem; margin-bottom: 0.3rem;">🎉🎓✨</div>
+      <h3 style="font-size: 1.55rem; font-weight: 900; margin-bottom: 0.3rem;">報名成功！專屬活動通行證</h3>
+      <p style="color: var(--text-secondary); font-size: 0.92rem;">
+        您的報名資料已同步更新至視覺化儀表板 💜
+      </p>
+
+      <div class="ticket-box" id="ticket-details"></div>
+
+      <button type="button" class="close-modal-btn" id="close-modal-btn">
+        🌟 太棒了！返回活動頁面
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // 12 Healthcare Categories with Emojis
+    const CATEGORIES = [
+      { name: '藥事', emoji: '💊' },
+      { name: '醫事放射', emoji: '🩻' },
+      { name: '醫事檢驗', emoji: '🧪' },
+      { name: '護理', emoji: '🩺' },
+      { name: '營養', emoji: '🥗' },
+      { name: '呼吸治療', emoji: '🫁' },
+      { name: '聽力', emoji: '👂' },
+      { name: '物理治療', emoji: '🏃' },
+      { name: '職能治療', emoji: '🧩' },
+      { name: '臨床心理', emoji: '🧠' },
+      { name: '語言治療', emoji: '🗣️' },
+      { name: '其他', emoji: '✨' }
+    ];
+
+    // Initial Seed Data for Rich Visual Demonstration
+    const INITIAL_PARTICIPANTS = [
+      { name: '林雅婷', organization: '奇美醫院', jobTitle: '護理長', category: '護理', isDirector: '是', attendanceMode: '實體' },
+      { name: '王建宏', organization: '奇美醫院', jobTitle: '臨床藥師組長', category: '藥事', isDirector: '是', attendanceMode: '實體' },
+      { name: '陳冠宇', organization: '柳營奇美醫院', jobTitle: '放射技術主任', category: '醫事放射', isDirector: '是', attendanceMode: '線上' },
+      { name: '張詩涵', organization: '奇美醫院', jobTitle: '醫檢組長', category: '醫事檢驗', isDirector: '是', attendanceMode: '實體' },
+      { name: '黃柏翰', organization: '奇美醫院', jobTitle: '物理治療師', category: '物理治療', isDirector: '否', attendanceMode: '實體' },
+      { name: '許家瑜', organization: '佳里奇美醫院', jobTitle: '營養師', category: '營養', isDirector: '是', attendanceMode: '線上' },
+      { name: '鄭宇軒', organization: '奇美醫院', jobTitle: '呼吸治療組長', category: '呼吸治療', isDirector: '是', attendanceMode: '實體' },
+      { name: '蔡佩珊', organization: '奇美醫院', jobTitle: '職能治療師', category: '職能治療', isDirector: '否', attendanceMode: '實體' },
+      { name: '劉哲瑋', organization: '奇美醫院', jobTitle: '臨床心理師', category: '臨床心理', isDirector: '是', attendanceMode: '線上' },
+      { name: '吳佳穎', organization: '柳營奇美醫院', jobTitle: '語言治療師', category: '語言治療', isDirector: '否', attendanceMode: '線上' },
+      { name: '郭俊傑', organization: '奇美醫院', jobTitle: '聽力師', category: '聽力', isDirector: '是', attendanceMode: '實體' },
+      { name: '周怡君', organization: '奇美醫院', jobTitle: '教學行政管理師', category: '其他', isDirector: '否', attendanceMode: '實體' },
+      { name: '謝承恩', organization: '奇美醫院', jobTitle: '專科護理師', category: '護理', isDirector: '是', attendanceMode: '實體' },
+      { name: '蘇郁婷', organization: '奇美醫院', jobTitle: '藥師', category: '藥事', isDirector: '否', attendanceMode: '實體' }
+    ];
+
+    let participants = [...INITIAL_PARTICIPANTS];
+
+    // Floating Emojis Background Setup
+    function initFloatingEmojis() {
+      const container = document.getElementById('emoji-particles');
+      const emojis = ['🎓', '✨', '💜', '🚀', '🩺', '💊', '🧪', '🧠', '🌟', '💡', '🏥', '🎉'];
+      for (let i = 0; i < 16; i++) {
+        const span = document.createElement('span');
+        span.className = 'floating-emoji';
+        span.textContent = emojis[i % emojis.length];
+        span.style.left = `${Math.random() * 96}%`;
+        span.style.animationDuration = `${14 + Math.random() * 14}s`;
+        span.style.animationDelay = `-${Math.random() * 20}s`;
+        span.style.fontSize = `${1.2 + Math.random() * 1.1}rem`;
+        container.appendChild(span);
+      }
+    }
+
+    // Render Dashboard Statistics
+    function renderDashboard() {
+      const total = participants.length;
+      const directorYes = participants.filter(p => p.isDirector === '是').length;
+      const directorNo = total - directorYes;
+      const modePhysical = participants.filter(p => p.attendanceMode === '實體').length;
+      const modeOnline = total - modePhysical;
+
+      const directorPct = total ? Math.round((directorYes / total) * 100) : 0;
+      const physicalPct = total ? Math.round((modePhysical / total) * 100) : 0;
+
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-director-rate').textContent = `${directorPct}%`;
+      document.getElementById('stat-physical-rate').textContent = `${physicalPct}%`;
+
+      // Director Split Bar
+      document.getElementById('director-ratio-text').textContent = `是 ${directorYes} 人 / 否 ${directorNo} 人`;
+      document.getElementById('bar-director-yes').style.width = `${directorPct}%`;
+      document.getElementById('bar-director-no').style.width = `${100 - directorPct}%`;
+      document.getElementById('pct-director-yes').textContent = `${directorPct}%`;
+      document.getElementById('pct-director-no').textContent = `${100 - directorPct}%`;
+
+      // Attendance Mode Split Bar
+      document.getElementById('mode-ratio-text').textContent = `實體 ${modePhysical} 人 / 線上 ${modeOnline} 人`;
+      document.getElementById('bar-mode-physical').style.width = `${physicalPct}%`;
+      document.getElementById('bar-mode-online').style.width = `${100 - physicalPct}%`;
+      document.getElementById('pct-mode-physical').textContent = `${physicalPct}%`;
+      document.getElementById('pct-mode-online').textContent = `${100 - physicalPct}%`;
+
+      // Category Chart
+      const counts = {};
+      CATEGORIES.forEach(c => counts[c.name] = 0);
+      participants.forEach(p => {
+        if (counts[p.category] !== undefined) counts[p.category]++;
+      });
+      const maxCount = Math.max(1, ...Object.values(counts));
+
+      const chartEl = document.getElementById('category-chart');
+      chartEl.innerHTML = CATEGORIES.map(cat => {
+        const count = counts[cat.name] || 0;
+        const widthPct = Math.round((count / maxCount) * 100);
+        return `
+          <div class="chart-row">
+            <div class="chart-label">${cat.emoji} ${cat.name}</div>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill" style="width: ${widthPct}%"></div>
+            </div>
+            <div class="chart-count">${count}人</div>
+          </div>
+        `;
+      }).join('');
+
+      // Recent Feed (top 4 latest)
+      const recentEl = document.getElementById('recent-feed');
+      const latest = participants.slice(-4).reverse();
+      recentEl.innerHTML = latest.map(p => {
+        const catObj = CATEGORIES.find(c => c.name === p.category) || { emoji: '✨' };
+        return `
+          <div class="recent-item">
+            <div class="recent-user">
+              <div class="avatar-circle">${catObj.emoji}</div>
+              <div>
+                <div style="font-weight: 800; color: #fff;">${p.name} <span style="font-weight: 500; font-size: 0.78rem; color: var(--text-secondary);">(${p.organization} ‧ ${p.jobTitle})</span></div>
+                <div style="font-size: 0.76rem; color: var(--text-muted);">負責職類：${p.category}</div>
+              </div>
+            </div>
+            <div class="recent-badges">
+              <span class="mini-badge">${p.isDirector === '是' ? '🌟 主持人' : '🌱 培訓中'}</span>
+              <span class="mini-badge ${p.attendanceMode === '線上' ? 'mode-online' : ''}">
+                ${p.attendanceMode === '實體' ? '🏫 實體' : '💻 線上'}
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Quick-fill institution chips
+    document.querySelectorAll('.chip-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.fillTarget);
+        if (target) {
+          target.value = btn.dataset.fillValue;
+          target.focus();
+        }
+      });
+    });
+
+    // Category tag sync with dropdown
+    const categorySelect = document.getElementById('category');
+    const categoryTags = document.querySelectorAll('.cat-tag');
+
+    categoryTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        const val = tag.dataset.cat;
+        categorySelect.value = val;
+        categoryTags.forEach(t => t.classList.toggle('active', t.dataset.cat === val));
+      });
+    });
+
+    categorySelect.addEventListener('change', () => {
+      const val = categorySelect.value;
+      categoryTags.forEach(t => t.classList.toggle('active', t.dataset.cat === val));
+    });
+
+    // Simple Canvas Confetti Effect
+    function fireConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const pieces = Array.from({ length: 95 }, () => ({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * 120,
+        size: 6 + Math.random() * 8,
+        color: ['#ec4899', '#a855f7', '#22d3ee', '#fbbf24', '#10b981'][Math.floor(Math.random() * 5)],
+        speedY: 3 + Math.random() * 5,
+        speedX: (Math.random() - 0.5) * 4,
+        angle: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.2
+      }));
+
+      let frame = 0;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.x += p.speedX;
+          p.y += p.speedY;
+          p.angle += p.spin;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+          ctx.restore();
+        });
+        frame++;
+        if (frame < 140) {
+          requestAnimationFrame(animate);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      animate();
+    }
+
+    // Form Submission Handler
+    document.getElementById('workshop-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const entry = {
+        name: formData.get('name').trim(),
+        organization: formData.get('organization').trim(),
+        jobTitle: formData.get('jobTitle').trim(),
+        category: formData.get('category'),
+        isDirector: formData.get('isDirector'),
+        attendanceMode: formData.get('attendanceMode'),
+        email: formData.get('email').trim(),
+        phone: formData.get('phone').trim()
+      };
+
+      participants.push(entry);
+      renderDashboard();
+      fireConfetti();
+
+      // Show Digital Pass Modal
+      const ticketDetails = document.getElementById('ticket-details');
+      ticketDetails.innerHTML = `
+        <div class="ticket-row"><span>👤 姓名</span><strong>${entry.name}</strong></div>
+        <div class="ticket-row"><span>🏥 機構 / 職稱</span><strong>${entry.organization} ‧ ${entry.jobTitle}</strong></div>
+        <div class="ticket-row"><span>🩺 負責的職類</span><strong>${entry.category}</strong></div>
+        <div class="ticket-row"><span>🏅 擔任計畫主持人</span><strong>${entry.isDirector}</strong></div>
+        <div class="ticket-row"><span>🌐 參與方式</span><strong>${entry.attendanceMode}</strong></div>
+        <div class="ticket-row"><span>📧 Email</span><strong>${entry.email}</strong></div>
+        <div class="ticket-row"><span>📱 聯繫電話</span><strong>${entry.phone}</strong></div>
+        <div class="ticket-row"><span>📍 活動地點</span><strong>奇美醫院第五醫療大樓6樓563會議室</strong></div>
+      `;
+      document.getElementById('success-modal').classList.add('show');
+      this.reset();
+      categoryTags.forEach(t => t.classList.remove('active'));
+    });
+
+    document.getElementById('close-modal-btn').addEventListener('click', () => {
+      document.getElementById('success-modal').classList.remove('show');
+    });
+
+    // Initialize on Load
+    initFloatingEmojis();
+    renderDashboard();
+  </script>
+</body>
+</html>
